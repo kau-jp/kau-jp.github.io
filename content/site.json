@@ -2,12 +2,12 @@
   "global": {
     "company_name": "禾宇株式会社 KAU Co., Ltd.",
     "postal_code": "〒100-0001",
-    "address_line_1": "東京都千代田区○○○ 1-2-3",
-    "address_line_2": "KAUビル 4F",
-    "phone": "03-0000-0000",
-    "email": "info@kau-jp.example",
-    "hours": "平日 10:00 – 18:00（土日祝休）",
-    "access": "○○線「○○駅」より徒歩5分",
+    "address_line_1": "大阪府大阪市西区阿波座2丁目",
+    "address_line_2": " 2-21 303号",
+    "phone": "#",
+    "email": "kau.official.jp@gmail.com",
+    "hours": "平日：09:00 – 18:00  定休日：土・日・祝日",
+    "access": "#",
     "contact_url": "#",
     "amazon_url": "#",
     "rakuten_url": "#"
@@ -18,7 +18,6 @@
     "hero_accent": "美しく",
     "hero_suffix": "。",
     "hero_subtitle": "オフィスチェアと学習チェアの専門ブランド。人間工学と日本のものづくりが出会う、ふだん使いの上質を。",
-    "hero_image": "",
     "philosophy": "椅子は、一日のほとんどをともに過ごす道具。だからこそ、座り心地と佇まいの両方に、妥協しない。",
     "showcase_title": "選ばれている、5脚。",
     "showcase": [
@@ -26,42 +25,36 @@
         "category": "Office",
         "name": "KAU Ergo One",
         "price": "¥48,000",
-        "description": "フルアジャスタブル / メッシュ",
-        "image": ""
+        "description": "フルアジャスタブル / メッシュ"
       },
       {
         "category": "Study",
         "name": "KAU Grow",
         "price": "¥32,000",
-        "description": "成長対応 / 学習チェア",
-        "image": ""
+        "description": "成長対応 / 学習チェア"
       },
       {
         "category": "Office",
         "name": "KAU Flow Mesh",
         "price": "¥39,800",
-        "description": "軽量 / フルメッシュ",
-        "image": ""
+        "description": "軽量 / フルメッシュ"
       },
       {
         "category": "Executive",
         "name": "KAU Noir",
         "price": "¥98,000",
-        "description": "本革 / エグゼクティブ",
-        "image": ""
+        "description": "本革 / エグゼクティブ"
       },
       {
         "category": "Study",
         "name": "KAU Mini",
         "price": "¥24,000",
-        "description": "キッズ / コンパクト",
-        "image": ""
+        "description": "キッズ / コンパクト"
       }
     ],
     "feature_eyebrow": "Signature — Ergo One",
     "feature_title": "背中を、科学する。",
     "feature_description": "背骨のS字カーブに沿うランバーサポート、体圧を分散するメッシュ座面、そして指先で微調整できる多段リクライニング。長時間のデスクワークでも、正しい姿勢を自然に保ちます。",
-    "feature_image": "",
     "values": [
       {
         "title": "人間工学設計",
@@ -79,8 +72,7 @@
     "cta_line_1": "あなたに合う一脚を、",
     "cta_accent": "いっしょに",
     "cta_suffix": "探す。",
-    "cta_description": "ショールームでの試座、法人さま向けのご提案も承ります。まずはお気軽にご相談ください。",
-    "cta_image": ""
+    "cta_description": "ショールームでの試座、法人さま向けのご提案も承ります。まずはお気軽にご相談ください。"
   },
   "about": {
     "statement": "私たち禾宇は、「すわる」という日常の所作を見つめ直し、はたらく人と学ぶ人の毎日を支えるオフィスチェア・学習チェアをつくっています。",
@@ -104,7 +96,6 @@
     "craft_title": "一脚に、こだわりを。",
     "craft_paragraph_1": "背骨のS字カーブに沿うランバーサポート、体圧を分散する座面構造、なめらかに動く可動機構。人間工学にもとづく設計を、確かな部材と検品体制で形にします。",
     "craft_paragraph_2": "耐久試験をクリアした素材のみを採用し、一脚ずつ丁寧に仕上げる。流行に流されず、長く使い続けられる「ちょうどいい」を追求しています。",
-    "craft_image": "",
     "profile": {
       "company": "禾宇株式会社（KAU Co., Ltd.）",
       "founded": "2014年4月",
@@ -141,8 +132,7 @@
         "title": "グッドデザイン賞 受賞",
         "description": "学習チェア「KAU Grow」がグッドデザイン賞を受賞。"
       }
-    ],
-    "map_image": ""
+    ]
   },
   "products": {
     "lead": "オフィスから学習空間まで。姿勢を支える、KAUのチェアコレクション。",
@@ -155,8 +145,7 @@
         "features": "メッシュ, ランバー, 多段リクライン",
         "price": "¥48,000",
         "amazon_url": "#",
-        "rakuten_url": "#",
-        "image": ""
+        "rakuten_url": "#"
       },
       {
         "category_code": "office",
@@ -166,8 +155,7 @@
         "features": "フルメッシュ, 軽量, 通気性",
         "price": "¥39,800",
         "amazon_url": "#",
-        "rakuten_url": "#",
-        "image": ""
+        "rakuten_url": "#"
       },
       {
         "category_code": "study",
@@ -177,8 +165,7 @@
         "features": "高さ調整, 足置き, 姿勢サポート",
         "price": "¥32,000",
         "amazon_url": "#",
-        "rakuten_url": "#",
-        "image": ""
+        "rakuten_url": "#"
       },
       {
         "category_code": "exec",
@@ -188,8 +175,7 @@
         "features": "本革, ハイバック, 重厚",
         "price": "¥98,000",
         "amazon_url": "#",
-        "rakuten_url": "#",
-        "image": ""
+        "rakuten_url": "#"
       },
       {
         "category_code": "study",
@@ -199,8 +185,7 @@
         "features": "コンパクト, 軽量, キャスター",
         "price": "¥24,000",
         "amazon_url": "#",
-        "rakuten_url": "#",
-        "image": ""
+        "rakuten_url": "#"
       },
       {
         "category_code": "office",
@@ -210,8 +195,7 @@
         "features": "コスパ, シンプル",
         "price": "¥21,800",
         "amazon_url": "#",
-        "rakuten_url": "#",
-        "image": ""
+        "rakuten_url": "#"
       },
       {
         "category_code": "acc",
@@ -221,8 +205,7 @@
         "features": "高さ調整, 傾斜",
         "price": "¥6,800",
         "amazon_url": "#",
-        "rakuten_url": "#",
-        "image": ""
+        "rakuten_url": "#"
       },
       {
         "category_code": "study",
@@ -232,8 +215,7 @@
         "features": "3D調整, 姿勢サポート",
         "price": "¥42,000",
         "amazon_url": "#",
-        "rakuten_url": "#",
-        "image": ""
+        "rakuten_url": "#"
       },
       {
         "category_code": "exec",
@@ -243,13 +225,11 @@
         "features": "合皮, ハイバック",
         "price": "¥58,000",
         "amazon_url": "#",
-        "rakuten_url": "#",
-        "image": ""
+        "rakuten_url": "#"
       }
     ],
     "banner_title": "長く座る人のための、一脚。",
     "banner_description": "12箇所の調整機構、体圧分散メッシュ、136°のリクライニング。デスクワークの一日を、正しい姿勢で支え抜くフラッグシップモデルです。",
-    "banner_image": "",
     "bulk_title": "法人さま向けの大量導入・OEMも。",
     "bulk_description": "オフィス開設や什器の入れ替え、ブランド向けOEMのご相談を承ります。お見積もりはお気軽に。"
   },
@@ -259,8 +239,7 @@
       "category": "製品",
       "title": "新作オフィスチェア「KAU Flow Mesh」発売のお知らせ",
       "summary": "軽量・高通気のフルメッシュを採用した新世代ワークチェア「KAU Flow Mesh」を発売しました。長時間のデスクワークを、より快適に。",
-      "url": "#",
-      "image": ""
+      "url": "#"
     },
     "items": [
       {
