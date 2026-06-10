@@ -1,0 +1,248 @@
+(function () {
+  "use strict";
+
+  function one(selector, root) {
+    return (root || document).querySelector(selector);
+  }
+
+  function all(selector, root) {
+    return Array.from((root || document).querySelectorAll(selector));
+  }
+
+  function text(selector, value, root) {
+    var element = one(selector, root);
+    if (element && value !== undefined && value !== null) {
+      element.textContent = value;
+    }
+  }
+
+  function link(selector, value, root) {
+    var element = one(selector, root);
+    if (element && value) element.href = value;
+  }
+
+  function image(selector, value, root) {
+    var element = one(selector, root);
+    if (element && value) element.setAttribute("src", value);
+  }
+
+  function lines(element, first, accent, suffix) {
+    if (!element) return;
+    element.replaceChildren();
+    element.append(document.createTextNode(first || ""));
+    element.append(document.createElement("br"));
+    var span = document.createElement("span");
+    span.className = "mn";
+    span.textContent = accent || "";
+    element.append(span);
+    element.append(document.createTextNode(suffix || ""));
+  }
+
+  function footerAddress(global) {
+    all(".footer-addr").forEach(function (element) {
+      element.replaceChildren();
+      [
+        global.company_name,
+        global.postal_code,
+        global.address_line_1,
+        global.address_line_2,
+      ].forEach(function (value, index) {
+        if (index) element.append(document.createElement("br"));
+        element.append(document.createTextNode(value || ""));
+      });
+    });
+  }
+
+  function applyGlobal(global) {
+    if (!global) return;
+    footerAddress(global);
+
+    all(".nav-shop-menu").forEach(function (menu) {
+      var links = all("a", menu);
+      if (links[0] && global.amazon_url) links[0].href = global.amazon_url;
+      if (links[1] && global.rakuten_url) links[1].href = global.rakuten_url;
+    });
+
+    all(".nav-cta").forEach(function (element) {
+      if (global.contact_url && global.contact_url !== "#") {
+        element.href = global.contact_url;
+      }
+    });
+  }
+
+  function applyHome(home, global) {
+    text(".hero-b .eyebrow", home.hero_eyebrow);
+    lines(one(".hero-b h1"), home.hero_line_1, home.hero_accent, home.hero_suffix);
+    text(".hero-b .sub", home.hero_subtitle);
+    image("#b-hero", home.hero_image);
+    text(".intro-b h2", home.philosophy);
+    text(".show-b .head h3", home.showcase_title);
+
+    all(".gcard").forEach(function (card, index) {
+      var item = home.showcase[index];
+      if (!item) return;
+      text(".gtag", item.category, card);
+      text(".nm", item.name, card);
+      text(".pr", item.price, card);
+      text(".gd", item.description, card);
+      image("image-slot", item.image, card);
+    });
+
+    text(".split-b .txt .eyebrow", home.feature_eyebrow);
+    text(".split-b .txt h2", home.feature_title);
+    text(".split-b .txt > p", home.feature_description);
+    image("#b-feat", home.feature_image);
+
+    all(".band-grid .v").forEach(function (card, index) {
+      var item = home.values[index];
+      if (!item) return;
+      text("h4", item.title, card);
+      text("p", item.description, card);
+    });
+
+    lines(one(".cta-b h2"), home.cta_line_1, home.cta_accent, home.cta_suffix);
+    text(".cta-b .in > p", home.cta_description);
+    image("#b-cta", home.cta_image);
+    link(".cta-b .btn-fill", global.contact_url);
+  }
+
+  function applyAbout(about, global) {
+    text(".about-statement .big", about.statement);
+
+    all(".philo3 .p").forEach(function (card, index) {
+      var item = about.principles[index];
+      if (!item) return;
+      text(".n", item.label, card);
+      text("h3", item.title, card);
+      text("p", item.description, card);
+    });
+
+    text(".feat2 h2", about.craft_title);
+    var craftParagraphs = all(".feat2 > div:last-child > p");
+    if (craftParagraphs[0]) craftParagraphs[0].textContent = about.craft_paragraph_1;
+    if (craftParagraphs[1]) craftParagraphs[1].textContent = about.craft_paragraph_2;
+    image("#ab-craft", about.craft_image);
+
+    var profileValues = [
+      about.profile.company,
+      about.profile.founded,
+      about.profile.ceo,
+      about.profile.capital,
+      about.profile.address,
+      about.profile.business,
+      about.profile.employees,
+      about.profile.bank,
+    ];
+    all(".otable dd").forEach(function (element, index) {
+      if (profileValues[index] !== undefined) {
+        element.textContent = profileValues[index];
+      }
+    });
+
+    all(".timeline .tl-item").forEach(function (itemElement, index) {
+      var item = about.history[index];
+      if (!item) return;
+      text(".y", item.year, itemElement);
+      text("h4", item.title, itemElement);
+      text("p", item.description, itemElement);
+    });
+
+    var accessValues = {
+      Address: [
+        global.postal_code,
+        global.address_line_1,
+        global.address_line_2,
+      ].filter(Boolean).join(" "),
+      Access: global.access,
+      Hours: global.hours,
+      Tel: global.phone,
+      Mail: global.email,
+    };
+    all(".access .ln").forEach(function (row) {
+      var key = one(".k", row);
+      var value = all("span", row)[1];
+      if (key && value && accessValues[key.textContent]) {
+        value.textContent = accessValues[key.textContent];
+      }
+    });
+    image("#ab-map", about.map_image);
+    link(".access .btn-solid", global.contact_url);
+  }
+
+  function applyProducts(products, global) {
+    text(".page-hero .lead", products.lead);
+
+    all("#grid .pcard").forEach(function (card, index) {
+      var item = products.items[index];
+      if (!item) return;
+      card.dataset.cat = item.category_code || "";
+      text(".cat", item.category_label, card);
+      text(".pname", item.name, card);
+      text(".pdesc", item.description, card);
+      text(".pprice", item.price, card);
+      image("image-slot", item.image, card);
+
+      var features = one(".feat-tags", card);
+      if (features) {
+        features.replaceChildren();
+        (item.features || "").split(",").map(function (value) {
+          return value.trim();
+        }).filter(Boolean).forEach(function (value) {
+          var span = document.createElement("span");
+          span.textContent = value;
+          features.append(span);
+        });
+      }
+
+      var buyLinks = all(".buy-row a", card);
+      if (buyLinks[0]) buyLinks[0].href = item.amazon_url || global.amazon_url || "#";
+      if (buyLinks[1]) buyLinks[1].href = item.rakuten_url || global.rakuten_url || "#";
+    });
+
+    text(".banner h2", products.banner_title);
+    text(".banner p", products.banner_description);
+    image("#pr-banner", products.banner_image);
+    text(".section.center h2", products.bulk_title);
+    text(".section.center .lead", products.bulk_description);
+    link(".section.center .btn-solid", global.contact_url);
+  }
+
+  function applyNews(news) {
+    var featured = one(".news-feat");
+    if (featured && news.featured) {
+      text(".d", news.featured.date, featured);
+      text(".tag-pill", news.featured.category, featured);
+      text("h2", news.featured.title, featured);
+      text("p", news.featured.summary, featured);
+      if (news.featured.url) featured.href = news.featured.url;
+      image("image-slot", news.featured.image, featured);
+    }
+
+    all("#nlist .nrow2").forEach(function (row, index) {
+      var item = news.items[index];
+      if (!item) return;
+      row.dataset.cat = item.category_code || "";
+      row.href = item.url || "#";
+      text(".d", item.date, row);
+      text(".tag-pill", item.category, row);
+      text(".h", item.title, row);
+    });
+  }
+
+  fetch("content/site.json?v=" + Date.now())
+    .then(function (response) {
+      if (!response.ok) throw new Error("Unable to load CMS content");
+      return response.json();
+    })
+    .then(function (content) {
+      applyGlobal(content.global);
+      var page = location.pathname.split("/").pop() || "home.html";
+      if (page === "home.html") applyHome(content.home, content.global);
+      if (page === "about.html") applyAbout(content.about, content.global);
+      if (page === "products.html") applyProducts(content.products, content.global);
+      if (page === "news.html") applyNews(content.news);
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+})();
