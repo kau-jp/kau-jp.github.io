@@ -441,7 +441,15 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:500;line-height:1.3;letter-spaci
 <style>
 /* ===== HOME B — Full-bleed Gallery ===== */
 .hero-b{position:relative;height:100svh;min-height:620px;overflow:hidden;background:var(--ink)}
+.hero-b .hero-pan{position:absolute;inset:-2% -7%;animation:hero-pan 32s ease-in-out infinite alternate;will-change:transform}
 .hero-b image-slot{position:absolute;inset:0;width:100%;height:100%;display:block}
+@keyframes hero-pan{
+  from{transform:translate3d(-3%,0,0)}
+  to{transform:translate3d(3%,0,0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-b .hero-pan{animation:none;transform:none}
+}
 .hero-b .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,16,36,.62) 0%,rgba(0,16,36,.22) 34%,rgba(0,16,36,.08) 56%,rgba(0,16,36,.8) 100%);z-index:2;pointer-events:none}
 .hero-b .grain{position:absolute;inset:0;z-index:2;opacity:.5;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:3px 3px;mix-blend-mode:overlay}
 .hero-b-inner{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 var(--pad);color:var(--paper)}
@@ -545,7 +553,9 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:500;line-height:1.3;letter-spaci
 
 <!-- HERO -->
 <header class="hero-b">
-  <image-slot id="b-hero" data-hero-zoom="" placeholder="フルスクリーンのチェア写真をドロップ" fit="cover"></image-slot>
+  <div class="hero-pan">
+    <image-slot id="b-hero" data-hero-zoom="" placeholder="フルスクリーンのチェア写真をドロップ" fit="cover"></image-slot>
+  </div>
   <div class="scrim"></div>
   <div class="grain"></div>
   <div class="hero-b-inner">
