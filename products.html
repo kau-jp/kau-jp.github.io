@@ -575,15 +575,18 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:500;line-height:1.3;letter-spaci
 <div id="kau-cs-overlay" onclick="if(event.target===this)kauCSClose()" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,27,61,.88);backdrop-filter:blur(6px);align-items:center;justify-content:center">
   <div id="kau-cs-modal" style="position:relative;background:#fff;border-radius:20px;padding:56px 48px 48px;max-width:460px;width:90%;text-align:center">
     <button onclick="kauCSClose()" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:24px;cursor:pointer;color:#aaa;line-height:1">✕</button>
-    <div id="kau-cs-ring" style="width:72px;height:72px;border-radius:50%;border:3px solid #c99f20;border-top-color:transparent;margin:0 auto 24px;animation:kauSpin 1.2s linear infinite"></div>
+    <div style="width:160px;height:68px;margin:0 auto 24px"><svg viewBox="198 101 832 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect fill="#c49c2f" x="198.54" y="101.28" width="831.08" height="224.89"/><g class="kau-k" style="transform-origin:340px 213px"><path fill="#fff" d="M260.07,295.87V131.58h38.55v80.7L433.91,192.5,440,223.75l-31.13,4.63,27,67.49H397l-22-61.81-76.37,10.81v51Z"/></g><g class="kau-a" style="transform-origin:610px 213px"><path fill="#fff" d="M499.41,295.87l92.95-164.29h36.83l94.2,164.29h-42.9L660.75,260H556.61l-19.12,35.91Zm73.52-65.59h72l-35.44-66.84Z"/></g><g class="kau-u" style="transform-origin:875px 213px"><path fill="#fff" d="M821.05,131.58V264.94H930V131.58h38.08V257q0,22.55-8.4,30.7t-32.33,8.16H823.53q-23.78,0-32.25-8.16T782.81,257V131.58Z"/></g></svg></div>
     <p style="font-size:12px;font-weight:700;letter-spacing:.2em;color:#c99f20;text-transform:uppercase;margin:0 0 14px">【 Coming Soon 】</p>
     <p style="font-size:17px;font-weight:600;color:#001b3d;line-height:1.8;margin:0 0 12px">オンラインショップの開設準備を<br>進めております。</p>
     <p style="font-size:14px;color:#888;margin:0">オープンまで、どうぞお楽しみに！</p>
   </div>
 </div>
 <style>
-@keyframes kauSpin{to{transform:rotate(360deg)}}
+@keyframes kauBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-12px)}}
 @keyframes kauCSIn{from{opacity:0;transform:scale(.7) translateY(24px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.kau-k{animation:kauBounce 1.6s ease-in-out infinite;animation-delay:0s}
+.kau-a{animation:kauBounce 1.6s ease-in-out infinite;animation-delay:.18s}
+.kau-u{animation:kauBounce 1.6s ease-in-out infinite;animation-delay:.36s}
 </style>
 <script>
 function showKauComingSoon(e){e&&(e.preventDefault(),e.stopPropagation());var o=document.getElementById('kau-cs-overlay');o.style.display='flex';var m=document.getElementById('kau-cs-modal');m.style.animation='none';m.offsetHeight;m.style.animation='kauCSIn .45s cubic-bezier(.34,1.56,.64,1)';}
