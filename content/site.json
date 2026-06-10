@@ -227,12 +227,13 @@
       {
         "category_code": "exec",
         "category_label": "Executive",
-        "name": "KAU Noir Lite",
+        "name": "KAU-EGG-R",
         "description": "合皮エグゼクティブチェア",
         "features": "合皮, ハイバック",
         "price": "¥58,000",
         "amazon_url": "#",
-        "rakuten_url": "#"
+        "rakuten_url": "#",
+        "image": "/media/2-6.png"
       }
     ],
     "banner_title": "長く座る人のための、一脚。",
