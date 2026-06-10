@@ -40,7 +40,8 @@
         "category": "Office",
         "name": "KAU Flow Mesh",
         "price": "¥39,800",
-        "description": "軽量 / フルメッシュ"
+        "description": "軽量 / フルメッシュ",
+        "image": "/media/2-2.png"
       },
       {
         "category": "Executive",
