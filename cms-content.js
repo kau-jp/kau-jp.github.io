@@ -188,6 +188,7 @@
         ph.append(catSpan);
         var slot = document.createElement("image-slot");
         slot.setAttribute("shape", "rect");
+        slot.setAttribute("fit", "contain");
         slot.id = "pr-" + (index + 1);
         slot.setAttribute("placeholder", "製品写真");
         if (item.image) slot.setAttribute("src", item.image);
