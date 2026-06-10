@@ -172,32 +172,90 @@
   function applyProducts(products, global) {
     text(".page-hero .lead", products.lead);
 
-    all("#grid .pcard").forEach(function (card, index) {
-      var item = products.items[index];
-      if (!item) return;
-      card.dataset.cat = item.category_code || "";
-      text(".cat", item.category_label, card);
-      text(".pname", item.name, card);
-      text(".pdesc", item.description, card);
-      text(".pprice", item.price, card);
-      image("image-slot", item.image, card);
+    var grid = one("#grid");
+    if (grid) {
+      grid.replaceChildren();
+      (products.items || []).forEach(function (item, index) {
+        var card = document.createElement("div");
+        card.className = "pcard";
+        card.dataset.cat = item.category_code || "";
 
-      var features = one(".feat-tags", card);
-      if (features) {
-        features.replaceChildren();
-        (item.features || "").split(",").map(function (value) {
-          return value.trim();
-        }).filter(Boolean).forEach(function (value) {
+        var ph = document.createElement("div");
+        ph.className = "ph";
+        var catSpan = document.createElement("span");
+        catSpan.className = "cat";
+        catSpan.textContent = item.category_label || "";
+        ph.append(catSpan);
+        var slot = document.createElement("image-slot");
+        slot.setAttribute("shape", "rect");
+        slot.id = "pr-" + (index + 1);
+        slot.setAttribute("placeholder", "製品写真");
+        if (item.image) slot.setAttribute("src", item.image);
+        ph.append(slot);
+        card.append(ph);
+
+        var meta = document.createElement("div");
+        meta.className = "meta";
+
+        var pname = document.createElement("div");
+        pname.className = "pname";
+        pname.textContent = item.name || "";
+        meta.append(pname);
+
+        var pdesc = document.createElement("div");
+        pdesc.className = "pdesc";
+        pdesc.textContent = item.description || "";
+        meta.append(pdesc);
+
+        var featTags = document.createElement("div");
+        featTags.className = "feat-tags";
+        (item.features || "").split(",").map(function (v) { return v.trim(); }).filter(Boolean).forEach(function (v) {
           var span = document.createElement("span");
-          span.textContent = value;
-          features.append(span);
+          span.textContent = v;
+          featTags.append(span);
         });
-      }
+        meta.append(featTags);
 
-      var buyLinks = all(".buy-row a", card);
-      if (buyLinks[0]) buyLinks[0].href = item.amazon_url || global.amazon_url || "#";
-      if (buyLinks[1]) buyLinks[1].href = item.rakuten_url || global.rakuten_url || "#";
-    });
+        var pprice = document.createElement("div");
+        pprice.className = "pprice";
+        pprice.textContent = item.price || "";
+        meta.append(pprice);
+
+        var buyRow = document.createElement("div");
+        buyRow.className = "buy-row";
+        var azLink = document.createElement("a");
+        azLink.href = item.amazon_url || global.amazon_url || "#";
+        azLink.setAttribute("onclick", "showKauComingSoon(event)");
+        azLink.className = "buy-btn buy-az";
+        azLink.textContent = "Amazonで購入";
+        buyRow.append(azLink);
+        var rkLink = document.createElement("a");
+        rkLink.href = item.rakuten_url || global.rakuten_url || "#";
+        rkLink.setAttribute("onclick", "showKauComingSoon(event)");
+        rkLink.className = "buy-btn buy-rk";
+        rkLink.textContent = "楽天市場";
+        buyRow.append(rkLink);
+        meta.append(buyRow);
+
+        card.append(meta);
+        grid.append(card);
+      });
+
+      // update filter chip counts based on actual data
+      var items = products.items || [];
+      var counts = { all: items.length };
+      items.forEach(function (item) {
+        var c = item.category_code;
+        if (c) counts[c] = (counts[c] || 0) + 1;
+      });
+      all(".chip[data-f]").forEach(function (chip) {
+        var f = chip.getAttribute("data-f");
+        var countEl = one(".c", chip);
+        if (countEl && counts[f] !== undefined) {
+          countEl.textContent = String(counts[f]).padStart(2, "0");
+        }
+      });
+    }
 
     text(".banner h2", products.banner_title);
     text(".banner p", products.banner_description);
