@@ -33,7 +33,8 @@
         "category": "Study",
         "name": "KAU Grow",
         "price": "¥32,000",
-        "description": "成長対応 / 学習チェア"
+        "description": "成長対応 / 学習チェア",
+        "image": "/media/9.png"
       },
       {
         "category": "Office",
