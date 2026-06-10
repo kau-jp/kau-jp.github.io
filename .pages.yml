@@ -143,8 +143,6 @@ content:
             label: 產品清單
             type: object
             list:
-              min: 9
-              max: 9
               collapsible:
                 collapsed: true
                 summary: "{name}"
