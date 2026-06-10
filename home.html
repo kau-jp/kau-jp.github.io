@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja"><head><script>window.__resources={"logoLight":"assets/053b8cb4-734b-4eab-8c12-07be625736fb.svg","logoDark":"assets/9c08a819-bf9d-463f-86af-22e1c2d67a0f.svg"};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -489,7 +489,7 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:500;line-height:1.3;letter-spaci
 .gcard .gm{display:flex;justify-content:space-between;align-items:baseline;padding-top:20px;border-top:1px solid var(--line);margin-top:18px}
 .gcard .gm .nm{font-family:var(--sans);font-size:16px;font-weight:500}
 .gcard .gm .pr{font-family:var(--latin);font-size:14px;font-weight:600}
-.gcard .gd{font-size:12.5px;color:var(--grey);margin-top:6px}
+.gcard .gd{font-size:12.5px;color:var(--grey);margin-top:6px}.gcard .pr{display:none}
 
 /* split feature */
 .split-b{display:grid;grid-template-columns:1fr 1fr;min-height:80vh}
@@ -526,6 +526,7 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:500;line-height:1.3;letter-spaci
   .band-grid{grid-template-columns:1fr;gap:40px}
 }
 @media(max-width:560px){.split-b .specs{grid-template-columns:1fr}}
+@keyframes pageFadeIn{from{opacity:0}to{opacity:1}}body{animation:pageFadeIn .3s ease}
 </style>
 </head>
 <body>
@@ -589,17 +590,17 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:500;line-height:1.3;letter-spaci
     <a href="products.html" class="btn-line">すべて見る</a>
   </div>
   <div class="track">
-    <a href="products.html" class="gcard" data-reveal=""><div class="gph"><span class="gtag">Office</span><image-slot id="b-g1" placeholder="製品写真"></image-slot></div><div class="gm"><span class="nm">KAU Ergo One</span><span class="pr">¥48,000</span></div><div class="gd">フルアジャスタブル / メッシュ</div></a>
-    <a href="products.html" class="gcard" data-reveal=""><div class="gph"><span class="gtag">Study</span><image-slot id="b-g2" placeholder="製品写真"></image-slot></div><div class="gm"><span class="nm">KAU Grow</span><span class="pr">¥32,000</span></div><div class="gd">成長対応 / 学習チェア</div></a>
-    <a href="products.html" class="gcard" data-reveal=""><div class="gph"><span class="gtag">Office</span><image-slot id="b-g3" placeholder="製品写真"></image-slot></div><div class="gm"><span class="nm">KAU Flow Mesh</span><span class="pr">¥39,800</span></div><div class="gd">軽量 / フルメッシュ</div></a>
-    <a href="products.html" class="gcard" data-reveal=""><div class="gph"><span class="gtag">Executive</span><image-slot id="b-g4" placeholder="製品写真"></image-slot></div><div class="gm"><span class="nm">KAU Noir</span><span class="pr">¥98,000</span></div><div class="gd">本革 / エグゼクティブ</div></a>
-    <a href="products.html" class="gcard" data-reveal=""><div class="gph"><span class="gtag">Study</span><image-slot id="b-g5" placeholder="製品写真"></image-slot></div><div class="gm"><span class="nm">KAU Mini</span><span class="pr">¥24,000</span></div><div class="gd">キッズ / コンパクト</div></a>
+    <a href="products.html" class="gcard" data-reveal=""><div class="gph"><span class="gtag">Office</span><image-slot shape="rect" id="b-g1" placeholder="製品写真"></image-slot></div><div class="gm"><span class="nm">KAU Ergo One</span><span class="pr">¥48,000</span></div><div class="gd">フルアジャスタブル / メッシュ</div></a>
+    <a href="products.html" class="gcard" data-reveal=""><div class="gph"><span class="gtag">Study</span><image-slot shape="rect" id="b-g2" placeholder="製品写真"></image-slot></div><div class="gm"><span class="nm">KAU Grow</span><span class="pr">¥32,000</span></div><div class="gd">成長対応 / 学習チェア</div></a>
+    <a href="products.html" class="gcard" data-reveal=""><div class="gph"><span class="gtag">Office</span><image-slot shape="rect" id="b-g3" placeholder="製品写真"></image-slot></div><div class="gm"><span class="nm">KAU Flow Mesh</span><span class="pr">¥39,800</span></div><div class="gd">軽量 / フルメッシュ</div></a>
+    <a href="products.html" class="gcard" data-reveal=""><div class="gph"><span class="gtag">Executive</span><image-slot shape="rect" id="b-g4" placeholder="製品写真"></image-slot></div><div class="gm"><span class="nm">KAU Noir</span><span class="pr">¥98,000</span></div><div class="gd">本革 / エグゼクティブ</div></a>
+    <a href="products.html" class="gcard" data-reveal=""><div class="gph"><span class="gtag">Study</span><image-slot shape="rect" id="b-g5" placeholder="製品写真"></image-slot></div><div class="gm"><span class="nm">KAU Mini</span><span class="pr">¥24,000</span></div><div class="gd">キッズ / コンパクト</div></a>
   </div>
 </section>
 
 <!-- SPLIT FEATURE -->
 <section class="split-b">
-  <div class="img"><image-slot id="b-feat" placeholder="製品ディテール写真"></image-slot></div>
+  <div class="img"><image-slot shape="rect" id="b-feat" placeholder="製品ディテール写真"></image-slot></div>
   <div class="txt">
     <div class="eyebrow" data-reveal="">Signature — Ergo One</div>
     <h2 data-reveal="">背中を、科学する。</h2>
@@ -679,4 +680,6 @@ function showKauComingSoon(e){e&&(e.preventDefault(),e.stopPropagation());var o=
 function kauCSClose(){document.getElementById('kau-cs-overlay').style.display='none';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')kauCSClose();});
 </script>
+<script>document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');if(h&&!h.startsWith('#')&&!h.startsWith('javascript')&&(h.endsWith('.html')||h.indexOf('.html#')>-1)&&!a.getAttribute('onclick')){a.addEventListener('click',function(e){if(!e.ctrlKey&&!e.metaKey&&!e.shiftKey){e.preventDefault();document.body.style.transition='opacity .2s';document.body.style.opacity='0';var u=h;setTimeout(function(){location.href=u},210);}});}});</script>
 </body></html>
+

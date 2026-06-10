@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja"><head><script>window.__resources={"logoDark":"assets/19c4e4ef-5076-477f-a664-a1ad80136b58.svg","logoLight":"assets/fef3652d-1cd2-4fbe-8a3e-5c24ed4d0cdb.svg"};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -476,6 +476,7 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:500;line-height:1.3;letter-spaci
   .nrow2 .h{grid-column:1/-1}
   .nrow2 .a{display:none}
 }
+@keyframes pageFadeIn{from{opacity:0}to{opacity:1}}body{animation:pageFadeIn .3s ease}
 </style>
 </head>
 <body>
@@ -515,7 +516,7 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:500;line-height:1.3;letter-spaci
   <div class="shell">
     <!-- FEATURED -->
     <a href="#" class="news-feat">
-      <div class="nf-img"><image-slot id="nw-feat" placeholder="トップニュースの写真"></image-slot></div>
+      <div class="nf-img"><image-slot shape="rect" id="nw-feat" placeholder="トップニュースの写真"></image-slot></div>
       <div class="nf-txt">
         <div class="nf-meta"><span class="d">2026.05.20</span><span class="tag-pill k">製品</span></div>
         <h2>新作オフィスチェア「KAU Flow Mesh」発売のお知らせ</h2>
@@ -601,4 +602,5 @@ function showKauComingSoon(e){e&&(e.preventDefault(),e.stopPropagation());var o=
 function kauCSClose(){document.getElementById('kau-cs-overlay').style.display='none';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')kauCSClose();});
 </script>
+<script>document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');if(h&&!h.startsWith('#')&&!h.startsWith('javascript')&&(h.endsWith('.html')||h.indexOf('.html#')>-1)&&!a.getAttribute('onclick')){a.addEventListener('click',function(e){if(!e.ctrlKey&&!e.metaKey&&!e.shiftKey){e.preventDefault();document.body.style.transition='opacity .2s';document.body.style.opacity='0';var u=h;setTimeout(function(){location.href=u},210);}});}});</script>
 </body></html>
