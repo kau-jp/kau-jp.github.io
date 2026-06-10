@@ -542,8 +542,8 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:500;line-height:1.3;letter-spaci
     <div class="nav-shop" id="navShop">
       <button class="nav-shop-btn" type="button">オンラインショップ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"></path></svg></button>
       <div class="nav-shop-menu"><div class="inner">
-        <a href="#" target="_blank" rel="noopener"><span class="mk mk-az">a</span>Amazonで購入</a>
-        <a href="#" target="_blank" rel="noopener"><span class="mk mk-rk">R</span>楽天市場で購入</a>
+        <a href="#" onclick="showKauComingSoon(event)"><span class="mk mk-az">a</span>Amazonで購入</a>
+        <a href="#" onclick="showKauComingSoon(event)"><span class="mk mk-rk">R</span>楽天市場で購入</a>
       </div></div>
     </div>
     <a href="#contact" class="nav-cta">お問い合わせ</a>
@@ -657,4 +657,23 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:500;line-height:1.3;letter-spaci
 
 
 
-<script src="cms-content.js" defer></script></body></html>
+<script src="cms-content.js" defer></script>
+<div id="kau-cs-overlay" onclick="if(event.target===this)kauCSClose()" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,27,61,.88);backdrop-filter:blur(6px);align-items:center;justify-content:center">
+  <div id="kau-cs-modal" style="position:relative;background:#fff;border-radius:20px;padding:56px 48px 48px;max-width:460px;width:90%;text-align:center">
+    <button onclick="kauCSClose()" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:24px;cursor:pointer;color:#aaa;line-height:1">✕</button>
+    <div id="kau-cs-ring" style="width:72px;height:72px;border-radius:50%;border:3px solid #c99f20;border-top-color:transparent;margin:0 auto 24px;animation:kauSpin 1.2s linear infinite"></div>
+    <p style="font-size:12px;font-weight:700;letter-spacing:.2em;color:#c99f20;text-transform:uppercase;margin:0 0 14px">【 Coming Soon 】</p>
+    <p style="font-size:17px;font-weight:600;color:#001b3d;line-height:1.8;margin:0 0 12px">オンラインショップの開設準備を<br>進めております。</p>
+    <p style="font-size:14px;color:#888;margin:0">オープンまで、どうぞお楽しみに！</p>
+  </div>
+</div>
+<style>
+@keyframes kauSpin{to{transform:rotate(360deg)}}
+@keyframes kauCSIn{from{opacity:0;transform:scale(.7) translateY(24px)}to{opacity:1;transform:scale(1) translateY(0)}}
+</style>
+<script>
+function showKauComingSoon(e){e&&(e.preventDefault(),e.stopPropagation());var o=document.getElementById('kau-cs-overlay');o.style.display='flex';var m=document.getElementById('kau-cs-modal');m.style.animation='none';m.offsetHeight;m.style.animation='kauCSIn .45s cubic-bezier(.34,1.56,.64,1)';}
+function kauCSClose(){document.getElementById('kau-cs-overlay').style.display='none';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')kauCSClose();});
+</script>
+</body></html>
