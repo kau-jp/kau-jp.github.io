@@ -47,13 +47,15 @@
         "category": "Executive",
         "name": "KAU Noir",
         "price": "¥98,000",
-        "description": "本革 / エグゼクティブ"
+        "description": "本革 / エグゼクティブ",
+        "image": "/media/商品_4-1.png"
       },
       {
         "category": "Study",
         "name": "KAU Mini",
         "price": "¥24,000",
-        "description": "キッズ / コンパクト"
+        "description": "キッズ / コンパクト",
+        "image": "/media/商品_11-1.png"
       }
     ],
     "feature_eyebrow": "Signature — Ergo One",
