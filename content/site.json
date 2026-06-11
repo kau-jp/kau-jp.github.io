@@ -193,7 +193,8 @@
         "features": "コンパクト, 軽量, キャスター",
         "price": "¥24,000",
         "amazon_url": "#",
-        "rakuten_url": "#"
+        "rakuten_url": "#",
+        "image": "/media/商品_9.png"
       },
       {
         "category_code": "office",
@@ -203,7 +204,8 @@
         "features": "コスパ, シンプル",
         "price": "¥21,800",
         "amazon_url": "#",
-        "rakuten_url": "#"
+        "rakuten_url": "#",
+        "image": "/media/商品_11-1.png"
       },
       {
         "category_code": "acc",
@@ -213,7 +215,8 @@
         "features": "高さ調整, 傾斜",
         "price": "¥6,800",
         "amazon_url": "#",
-        "rakuten_url": "#"
+        "rakuten_url": "#",
+        "image": "/media/商品_13.png"
       },
       {
         "category_code": "study",
