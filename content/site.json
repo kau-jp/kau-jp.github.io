@@ -24,35 +24,35 @@
     "showcase": [
       {
         "category": "Office",
-        "name": "KAU Ergo One",
+        "name": "KAU-006-FT",
         "price": "¥48,000",
         "description": "フルアジャスタブル / メッシュ",
         "image": "/media/2-1.png"
       },
       {
         "category": "Study",
-        "name": "KAU Grow",
+        "name": "KAU-006-FTLL",
         "price": "¥32,000",
         "description": "成長対応 / 学習チェア",
         "image": "/media/9.png"
       },
       {
         "category": "Office",
-        "name": "KAU Flow Mesh",
+        "name": "KAU-730-R",
         "price": "¥39,800",
         "description": "軽量 / フルメッシュ",
         "image": "/media/2-2.png"
       },
       {
         "category": "Executive",
-        "name": "KAU Noir",
+        "name": "KAU-006",
         "price": "¥98,000",
         "description": "本革 / エグゼクティブ",
         "image": "/media/商品_4-1.png"
       },
       {
         "category": "Study",
-        "name": "KAU Mini",
+        "name": "KAU-525N-FTLL",
         "price": "¥24,000",
         "description": "キッズ / コンパクト",
         "image": "/media/商品_11-1.png"
