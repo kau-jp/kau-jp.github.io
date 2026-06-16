@@ -1,0 +1,6 @@
+image-input/*
+!image-input/.gitkeep
+image-output/*
+!image-output/.gitkeep
+__pycache__/
+scripts/__pycache__/
