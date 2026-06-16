@@ -26,6 +26,18 @@ def iter_images(input_path: Path) -> list[Path]:
     ]
 
 
+def collect_images(input_paths: list[Path]) -> list[Path]:
+    images: list[Path] = []
+    seen: set[Path] = set()
+    for input_path in input_paths:
+        for image in iter_images(input_path):
+            resolved = image.resolve()
+            if resolved not in seen:
+                images.append(image)
+                seen.add(resolved)
+    return images
+
+
 def flatten_for_jpeg(image: Image.Image) -> Image.Image:
     if image.mode in ("RGBA", "LA") or (
         image.mode == "P" and "transparency" in image.info
@@ -98,9 +110,8 @@ def main() -> None:
     )
     parser.add_argument(
         "input",
-        nargs="?",
-        default="image-input",
-        help="Input file or folder. Default: image-input",
+        nargs="*",
+        help="Input file(s) or folder(s). Default: image-input",
     )
     parser.add_argument(
         "-o",
@@ -134,12 +145,12 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    input_path = Path(args.input)
+    input_paths = [Path(value) for value in args.input] or [Path("image-input")]
     output_dir = Path(args.output)
-    images = iter_images(input_path)
+    images = collect_images(input_paths)
 
     if not images:
-        print(f"No supported images found in {input_path}")
+        print("No supported images found.")
         return
 
     print(f"Compressing {len(images)} image(s)...")
