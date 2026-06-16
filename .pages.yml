@@ -52,8 +52,6 @@ content:
             label: 首頁精選商品
             type: object
             list:
-              min: 5
-              max: 5
               collapsible:
                 collapsed: true
                 summary: "{name}"
@@ -68,11 +66,9 @@ content:
           - { name: feature_description, label: 主打商品說明, type: text }
           - { name: feature_image, label: 主打商品圖片, type: image, required: false }
           - name: values
-            label: 三項品牌價值
+            label: 品牌價值
             type: object
             list:
-              min: 3
-              max: 3
               collapsible:
                 collapsed: true
                 summary: "{title}"
@@ -91,11 +87,9 @@ content:
         fields:
           - { name: statement, label: 公司主張, type: text }
           - name: principles
-            label: 三項理念
+            label: 理念
             type: object
             list:
-              min: 3
-              max: 3
               collapsible:
                 collapsed: true
                 summary: "{title}"
@@ -123,8 +117,6 @@ content:
             label: 公司沿革
             type: object
             list:
-              min: 5
-              max: 5
               collapsible:
                 collapsed: true
                 summary: "{year} {title}"
@@ -188,8 +180,6 @@ content:
             label: 消息清單
             type: object
             list:
-              min: 7
-              max: 7
               collapsible:
                 collapsed: true
                 summary: "{date} {title}"

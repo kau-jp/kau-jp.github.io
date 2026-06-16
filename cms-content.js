@@ -38,6 +38,26 @@
     element.append(document.createTextNode(suffix || ""));
   }
 
+  function createImageSlot(options) {
+    var slot = document.createElement("image-slot");
+    slot.setAttribute("shape", options.shape || "rect");
+    if (options.fit) slot.setAttribute("fit", options.fit);
+    if (options.id) slot.id = options.id;
+    slot.setAttribute("placeholder", options.placeholder || "画像");
+    if (options.src) slot.setAttribute("src", options.src);
+    return slot;
+  }
+
+  function createArrowIcon() {
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", "M5 12h14M13 6l6 6-6 6");
+    svg.append(path);
+    return svg;
+  }
+
   function footerAddress(global) {
     all(".footer-addr").forEach(function (element) {
       element.replaceChildren();
@@ -77,28 +97,14 @@
     image("#b-hero", home.hero_image);
     text(".intro-b h2", home.philosophy);
     text(".show-b .head h3", home.showcase_title);
-
-    all(".gcard").forEach(function (card, index) {
-      var item = home.showcase[index];
-      if (!item) return;
-      text(".gtag", item.category, card);
-      text(".nm", item.name, card);
-      text(".pr", item.price, card);
-      text(".gd", item.description, card);
-      image("image-slot", item.image, card);
-    });
+    renderHomeShowcase(home.showcase);
 
     text(".split-b .txt .eyebrow", home.feature_eyebrow);
     text(".split-b .txt h2", home.feature_title);
     text(".split-b .txt > p", home.feature_description);
     image("#b-feat", home.feature_image);
 
-    all(".band-grid .v").forEach(function (card, index) {
-      var item = home.values[index];
-      if (!item) return;
-      text("h4", item.title, card);
-      text("p", item.description, card);
-    });
+    renderHomeValues(home.values);
 
     lines(one(".cta-b h2"), home.cta_line_1, home.cta_accent, home.cta_suffix);
     text(".cta-b .in > p", home.cta_description);
@@ -106,16 +112,89 @@
     link(".cta-b .btn-fill", global.contact_url);
   }
 
+  function renderHomeShowcase(items) {
+    var track = one(".show-b .track");
+    if (!track) return;
+
+    track.replaceChildren();
+    (items || []).forEach(function (item, index) {
+      var card = document.createElement("a");
+      card.href = "products.html";
+      card.className = "gcard";
+      card.setAttribute("data-reveal", "");
+
+      var media = document.createElement("div");
+      media.className = "gph";
+      var tag = document.createElement("span");
+      tag.className = "gtag";
+      tag.textContent = item.category || "";
+      media.append(tag);
+      media.append(createImageSlot({
+        shape: "rect",
+        id: "b-g" + (index + 1),
+        placeholder: "製品写真",
+        src: item.image,
+      }));
+      card.append(media);
+
+      var meta = document.createElement("div");
+      meta.className = "gm";
+      var name = document.createElement("span");
+      name.className = "nm";
+      name.textContent = item.name || "";
+      meta.append(name);
+      var price = document.createElement("span");
+      price.className = "pr";
+      price.textContent = item.price || "";
+      meta.append(price);
+      card.append(meta);
+
+      var description = document.createElement("div");
+      description.className = "gd";
+      description.textContent = item.description || "";
+      card.append(description);
+
+      track.append(card);
+    });
+  }
+
+  function renderHomeValues(items) {
+    var grid = one(".band-grid");
+    if (!grid) return;
+
+    var icons = all(".band-grid .v img.ic").map(function (imageElement) {
+      return imageElement.getAttribute("src");
+    }).filter(Boolean);
+
+    grid.replaceChildren();
+    (items || []).forEach(function (item, index) {
+      var card = document.createElement("div");
+      card.className = "v";
+      card.setAttribute("data-reveal", "");
+
+      if (icons.length) {
+        var icon = document.createElement("img");
+        icon.className = "ic";
+        icon.src = icons[index % icons.length];
+        icon.alt = "";
+        card.append(icon);
+      }
+
+      var title = document.createElement("h4");
+      title.textContent = item.title || "";
+      card.append(title);
+
+      var description = document.createElement("p");
+      description.textContent = item.description || "";
+      card.append(description);
+
+      grid.append(card);
+    });
+  }
+
   function applyAbout(about, global) {
     text(".about-statement .big", about.statement);
-
-    all(".philo3 .p").forEach(function (card, index) {
-      var item = about.principles[index];
-      if (!item) return;
-      text(".n", item.label, card);
-      text("h3", item.title, card);
-      text("p", item.description, card);
-    });
+    renderPrinciples(about.principles);
 
     text(".feat2 h2", about.craft_title);
     var craftParagraphs = all(".feat2 > div:last-child > p");
@@ -124,14 +203,7 @@
     image("#ab-craft", about.craft_image);
 
     renderProfile(about.profile);
-
-    all(".timeline .tl-item").forEach(function (itemElement, index) {
-      var item = about.history[index];
-      if (!item) return;
-      text(".y", item.year, itemElement);
-      text("h4", item.title, itemElement);
-      text("p", item.description, itemElement);
-    });
+    renderHistory(about.history);
 
     var accessValues = {
       Address: [
@@ -153,6 +225,64 @@
     });
     image("#ab-map", about.map_image);
     link(".access .btn-solid", global.contact_url);
+  }
+
+  function renderPrinciples(items) {
+    var grid = one(".philo3");
+    if (!grid) return;
+
+    grid.replaceChildren();
+    (items || []).forEach(function (item) {
+      var card = document.createElement("div");
+      card.className = "p";
+      card.setAttribute("data-reveal", "");
+
+      var label = document.createElement("div");
+      label.className = "n";
+      label.textContent = item.label || "";
+      card.append(label);
+
+      var title = document.createElement("h3");
+      title.textContent = item.title || "";
+      card.append(title);
+
+      var description = document.createElement("p");
+      description.textContent = item.description || "";
+      card.append(description);
+
+      grid.append(card);
+    });
+  }
+
+  function renderHistory(items) {
+    var timeline = one(".timeline");
+    if (!timeline) return;
+
+    timeline.replaceChildren();
+    (items || []).forEach(function (item, index) {
+      var row = document.createElement("div");
+      row.className = "tl-item";
+      if (index === 0) row.style.setProperty("--c", "#fff");
+      if (index === items.length - 1) row.style.paddingBottom = "0";
+
+      var year = document.createElement("div");
+      year.className = "y";
+      year.style.color = "#fff";
+      year.textContent = item.year || "";
+      row.append(year);
+
+      var title = document.createElement("h4");
+      title.style.color = "#fff";
+      title.textContent = item.title || "";
+      row.append(title);
+
+      var description = document.createElement("p");
+      description.style.color = "rgba(245,243,239,.6)";
+      description.textContent = item.description || "";
+      row.append(description);
+
+      timeline.append(row);
+    });
   }
 
   function normaliseProfile(profile) {
@@ -314,14 +444,44 @@
       image("image-slot", news.featured.image, featured);
     }
 
-    all("#nlist .nrow2").forEach(function (row, index) {
-      var item = news.items[index];
-      if (!item) return;
-      row.dataset.cat = item.category_code || "";
+    renderNewsItems(news.items);
+  }
+
+  function renderNewsItems(items) {
+    var list = one("#nlist");
+    if (!list) return;
+
+    list.replaceChildren();
+    (items || []).forEach(function (item) {
+      var row = document.createElement("a");
       row.href = item.url || "#";
-      text(".d", item.date, row);
-      text(".tag-pill", item.category, row);
-      text(".h", item.title, row);
+      row.className = "nrow2";
+      row.dataset.cat = item.category_code || "";
+
+      var date = document.createElement("span");
+      date.className = "d";
+      date.textContent = item.date || "";
+      row.append(date);
+
+      var tagWrap = document.createElement("span");
+      tagWrap.className = "t";
+      var tag = document.createElement("span");
+      tag.className = "tag-pill";
+      tag.textContent = item.category || "";
+      tagWrap.append(tag);
+      row.append(tagWrap);
+
+      var title = document.createElement("span");
+      title.className = "h";
+      title.textContent = item.title || "";
+      row.append(title);
+
+      var action = document.createElement("span");
+      action.className = "a";
+      action.append(createArrowIcon());
+      row.append(action);
+
+      list.append(row);
     });
   }
 
