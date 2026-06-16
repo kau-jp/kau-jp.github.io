@@ -38,6 +38,28 @@
     element.append(document.createTextNode(suffix || ""));
   }
 
+  function setButton(element, label, url) {
+    if (!element) return;
+    if (url) element.href = url;
+    var icon = one("svg", element);
+    element.replaceChildren(document.createTextNode(label || ""));
+    if (icon) {
+      element.append(document.createTextNode(" "));
+      element.append(icon);
+    }
+  }
+
+  function labelWithEnglish(anchor, label, english) {
+    if (!anchor) return;
+    anchor.replaceChildren(document.createTextNode(label || ""));
+    if (english) {
+      var span = document.createElement("span");
+      span.className = "en";
+      span.textContent = english;
+      anchor.append(span);
+    }
+  }
+
   function createImageSlot(options) {
     var slot = document.createElement("image-slot");
     slot.setAttribute("shape", options.shape || "rect");
@@ -48,17 +70,81 @@
     return slot;
   }
 
-  function createArrowIcon() {
+  function createArrowIcon(width) {
     var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("fill", "none");
+    svg.setAttribute("stroke", "currentColor");
+    svg.setAttribute("stroke-width", "1.6");
     svg.setAttribute("aria-hidden", "true");
+    if (width) svg.setAttribute("width", String(width));
     var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     path.setAttribute("d", "M5 12h14M13 6l6 6-6 6");
     svg.append(path);
     return svg;
   }
 
-  function footerAddress(global) {
+  function applyGlobal(global) {
+    if (!global) return;
+    applyNavigation(global);
+    applyFooter(global);
+    applyShop(global);
+  }
+
+  function applyNavigation(global) {
+    var nav = global.navigation || {};
+    all(".nav-links").forEach(function (menu) {
+      var links = all("a", menu);
+      labelWithEnglish(links[0], nav.home_label, nav.home_en);
+      labelWithEnglish(links[1], nav.about_label, nav.about_en);
+      labelWithEnglish(links[2], nav.products_label, nav.products_en);
+      labelWithEnglish(links[3], nav.news_label, nav.news_en);
+    });
+
+    all(".nav-shop-btn").forEach(function (button) {
+      var icon = one("svg", button);
+      button.replaceChildren(document.createTextNode(nav.shop_label || "オンラインショップ"));
+      if (icon) {
+        button.append(document.createTextNode(" "));
+        button.append(icon);
+      }
+    });
+
+    all(".nav-cta").forEach(function (element) {
+      element.textContent = nav.contact_label || "お問い合わせ";
+      if (global.contact_url && global.contact_url !== "#") element.href = global.contact_url;
+    });
+  }
+
+  function applyShop(global) {
+    var shop = global.shop || {};
+    all(".nav-shop-menu").forEach(function (menu) {
+      var links = all("a", menu);
+      setShopLink(links[0], "a", "mk-az", shop.amazon_label || "Amazonで購入", global.amazon_url);
+      setShopLink(links[1], "R", "mk-rk", shop.rakuten_label || "楽天市場で購入", global.rakuten_url);
+    });
+
+    var modal = one("#kau-cs-modal");
+    if (modal) {
+      var paragraphs = all("p", modal);
+      if (paragraphs[0]) paragraphs[0].textContent = shop.coming_soon_label || "";
+      if (paragraphs[1]) paragraphs[1].textContent = shop.coming_soon_title || "";
+      if (paragraphs[2]) paragraphs[2].textContent = shop.coming_soon_description || "";
+    }
+  }
+
+  function setShopLink(anchor, mark, markClass, label, url) {
+    if (!anchor) return;
+    if (url) anchor.href = url;
+    anchor.replaceChildren();
+    var span = document.createElement("span");
+    span.className = "mk " + markClass;
+    span.textContent = mark;
+    anchor.append(span, document.createTextNode(label || ""));
+  }
+
+  function applyFooter(global) {
+    var footer = global.footer || {};
     all(".footer-addr").forEach(function (element) {
       element.replaceChildren();
       [
@@ -66,56 +152,82 @@
         global.postal_code,
         global.address_line_1,
         global.address_line_2,
-      ].forEach(function (value, index) {
+      ].filter(Boolean).forEach(function (value, index) {
         if (index) element.append(document.createElement("br"));
-        element.append(document.createTextNode(value || ""));
+        element.append(document.createTextNode(value));
       });
     });
-  }
 
-  function applyGlobal(global) {
-    if (!global) return;
-    footerAddress(global);
-
-    all(".nav-shop-menu").forEach(function (menu) {
-      var links = all("a", menu);
-      if (links[0] && global.amazon_url) links[0].href = global.amazon_url;
-      if (links[1] && global.rakuten_url) links[1].href = global.rakuten_url;
-    });
-
-    all(".nav-cta").forEach(function (element) {
-      if (global.contact_url && global.contact_url !== "#") {
-        element.href = global.contact_url;
+    all(".footer").forEach(function (footerElement) {
+      var columns = all(".footer-col", footerElement);
+      renderFooterColumn(columns[0], footer.products_title, footer.products_links);
+      renderFooterColumn(columns[1], footer.company_title, footer.company_links);
+      renderFooterColumn(columns[2], footer.support_title, footer.support_links);
+      var bottom = one(".footer-bottom", footerElement);
+      if (bottom) {
+        var spans = all("span", bottom);
+        if (spans[0] && footer.copyright) spans[0].textContent = footer.copyright;
+        if (spans[1] && footer.suffix) spans[1].textContent = footer.suffix;
       }
     });
   }
 
+  function renderFooterColumn(column, title, links) {
+    if (!column) return;
+    column.replaceChildren();
+    var heading = document.createElement("h5");
+    heading.textContent = title || "";
+    column.append(heading);
+    (links || []).forEach(function (item) {
+      var anchor = document.createElement("a");
+      anchor.href = item.url || "#";
+      anchor.textContent = item.label || "";
+      column.append(anchor);
+    });
+  }
+
   function applyHome(home, global) {
-    text(".hero-b .eyebrow", home.hero_eyebrow);
-    lines(one(".hero-b h1"), home.hero_line_1, home.hero_accent, home.hero_suffix);
-    text(".hero-b .sub", home.hero_subtitle);
-    image("#b-hero", home.hero_image);
-    text(".intro-b h2", home.philosophy);
-    text(".show-b .head h3", home.showcase_title);
-    renderHomeShowcase(home.showcase);
+    if (!home) return;
+    var hero = home.hero || {};
+    text(".hero-b .eyebrow", hero.eyebrow);
+    lines(one(".hero-b h1"), hero.line_1, hero.accent, hero.suffix);
+    text(".hero-b .sub", hero.subtitle);
+    image("#b-hero", hero.image);
+    setButton(one(".hero-b .btn-fill"), hero.primary_label, hero.primary_url);
+    setButton(one(".hero-b .btn-ghost"), hero.secondary_label, hero.secondary_url);
+    text(".hero-b .scroll span", hero.scroll_label);
 
-    text(".split-b .txt .eyebrow", home.feature_eyebrow);
-    text(".split-b .txt h2", home.feature_title);
-    text(".split-b .txt > p", home.feature_description);
-    image("#b-feat", home.feature_image);
+    var philosophy = home.philosophy || {};
+    text(".intro-b .eyebrow", philosophy.eyebrow);
+    text(".intro-b h2", philosophy.title);
 
-    renderHomeValues(home.values);
+    var showcase = home.showcase || {};
+    text(".show-b .head .eyebrow", showcase.eyebrow);
+    text(".show-b .head h3", showcase.title);
+    setButton(one(".show-b .btn-line"), showcase.view_all_label, showcase.view_all_url);
+    renderHomeShowcase(showcase.items);
 
-    lines(one(".cta-b h2"), home.cta_line_1, home.cta_accent, home.cta_suffix);
-    text(".cta-b .in > p", home.cta_description);
-    image("#b-cta", home.cta_image);
-    link(".cta-b .btn-fill", global.contact_url);
+    var feature = home.feature || {};
+    text(".split-b .txt .eyebrow", feature.eyebrow);
+    text(".split-b .txt h2", feature.title);
+    text(".split-b .txt > p", feature.description);
+    image("#b-feat", feature.image);
+    renderStats(feature.stats);
+
+    renderHomeValues((home.values || {}).items);
+
+    var cta = home.cta || {};
+    text(".cta-b .eyebrow", cta.eyebrow);
+    lines(one(".cta-b h2"), cta.line_1, cta.accent, cta.suffix);
+    text(".cta-b .in > p", cta.description);
+    image("#b-cta", cta.image);
+    setButton(one(".cta-b .btn-fill"), cta.primary_label, cta.primary_url || global.contact_url);
+    setButton(one(".cta-b .btn-ghost"), cta.secondary_label, cta.secondary_url);
   }
 
   function renderHomeShowcase(items) {
     var track = one(".show-b .track");
     if (!track) return;
-
     track.replaceChildren();
     (items || []).forEach(function (item, index) {
       var card = document.createElement("a");
@@ -128,8 +240,7 @@
       var tag = document.createElement("span");
       tag.className = "gtag";
       tag.textContent = item.category || "";
-      media.append(tag);
-      media.append(createImageSlot({
+      media.append(tag, createImageSlot({
         shape: "rect",
         id: "b-g" + (index + 1),
         placeholder: "製品写真",
@@ -142,36 +253,51 @@
       var name = document.createElement("span");
       name.className = "nm";
       name.textContent = item.name || "";
-      meta.append(name);
       var price = document.createElement("span");
       price.className = "pr";
       price.textContent = item.price || "";
-      meta.append(price);
+      meta.append(name, price);
       card.append(meta);
 
       var description = document.createElement("div");
       description.className = "gd";
       description.textContent = item.description || "";
       card.append(description);
-
       track.append(card);
+    });
+  }
+
+  function renderStats(stats) {
+    var container = one(".split-b .specs");
+    if (!container) return;
+    container.replaceChildren();
+    (stats || []).forEach(function (item) {
+      var stat = document.createElement("div");
+      stat.className = "sp";
+      var value = document.createElement("div");
+      value.className = "v";
+      value.dataset.count = item.value || "0";
+      if (item.suffix) value.dataset.suffix = item.suffix;
+      value.textContent = item.value || "0";
+      var label = document.createElement("div");
+      label.className = "k";
+      label.textContent = item.label || "";
+      stat.append(value, label);
+      container.append(stat);
     });
   }
 
   function renderHomeValues(items) {
     var grid = one(".band-grid");
     if (!grid) return;
-
     var icons = all(".band-grid .v img.ic").map(function (imageElement) {
       return imageElement.getAttribute("src");
     }).filter(Boolean);
-
     grid.replaceChildren();
     (items || []).forEach(function (item, index) {
       var card = document.createElement("div");
       card.className = "v";
       card.setAttribute("data-reveal", "");
-
       if (icons.length) {
         var icon = document.createElement("img");
         icon.className = "ic";
@@ -179,31 +305,47 @@
         icon.alt = "";
         card.append(icon);
       }
-
       var title = document.createElement("h4");
       title.textContent = item.title || "";
-      card.append(title);
-
       var description = document.createElement("p");
       description.textContent = item.description || "";
-      card.append(description);
-
+      card.append(title, description);
       grid.append(card);
     });
   }
 
   function applyAbout(about, global) {
-    text(".about-statement .big", about.statement);
-    renderPrinciples(about.principles);
+    if (!about) return;
+    var hero = about.hero || {};
+    text(".page-hero h1", hero.title);
+    text(".page-hero .sub", hero.subtitle);
+    text(".about-statement .big", (about.statement || {}).text);
+    renderPrinciples((about.principles || {}).items);
 
-    text(".feat2 h2", about.craft_title);
+    var craft = about.craft || {};
+    text(".feat2 .eyebrow", craft.eyebrow);
+    text(".feat2 h2", craft.title);
     var craftParagraphs = all(".feat2 > div:last-child > p");
-    if (craftParagraphs[0]) craftParagraphs[0].textContent = about.craft_paragraph_1;
-    if (craftParagraphs[1]) craftParagraphs[1].textContent = about.craft_paragraph_2;
-    image("#ab-craft", about.craft_image);
+    if (craftParagraphs[0]) craftParagraphs[0].textContent = craft.description_1 || "";
+    if (craftParagraphs[1]) craftParagraphs[1].textContent = craft.description_2 || "";
+    image("#ab-craft", craft.image);
 
-    renderProfile(about.profile);
-    renderHistory(about.history);
+    var profile = about.profile || {};
+    text(".profile .label .eyebrow", profile.eyebrow);
+    text(".profile .title", profile.title);
+    renderProfile(profile.items);
+
+    var history = about.history || {};
+    text(".history .label .eyebrow", history.eyebrow);
+    text(".history .title", history.title);
+    renderHistory(history.items);
+
+    var access = about.access || {};
+    text(".access .label .eyebrow", access.eyebrow);
+    text(".access .title", access.title);
+    text(".access h3", access.place_name);
+    image("#ab-map", access.map_image);
+    setButton(one(".access .btn-solid"), access.button_label, global.contact_url);
 
     var accessValues = {
       Address: [
@@ -219,105 +361,37 @@
     all(".access .ln").forEach(function (row) {
       var key = one(".k", row);
       var value = all("span", row)[1];
-      if (key && value && accessValues[key.textContent]) {
-        value.textContent = accessValues[key.textContent];
-      }
+      if (key && value && accessValues[key.textContent]) value.textContent = accessValues[key.textContent];
     });
-    image("#ab-map", about.map_image);
-    link(".access .btn-solid", global.contact_url);
   }
 
   function renderPrinciples(items) {
     var grid = one(".philo3");
     if (!grid) return;
-
     grid.replaceChildren();
     (items || []).forEach(function (item) {
       var card = document.createElement("div");
       card.className = "p";
       card.setAttribute("data-reveal", "");
-
       var label = document.createElement("div");
       label.className = "n";
       label.textContent = item.label || "";
-      card.append(label);
-
       var title = document.createElement("h3");
       title.textContent = item.title || "";
-      card.append(title);
-
       var description = document.createElement("p");
       description.textContent = item.description || "";
-      card.append(description);
-
+      card.append(label, title, description);
       grid.append(card);
     });
   }
 
-  function renderHistory(items) {
-    var timeline = one(".timeline");
-    if (!timeline) return;
-
-    timeline.replaceChildren();
-    (items || []).forEach(function (item, index) {
-      var row = document.createElement("div");
-      row.className = "tl-item";
-      if (index === 0) row.style.setProperty("--c", "#fff");
-      if (index === items.length - 1) row.style.paddingBottom = "0";
-
-      var year = document.createElement("div");
-      year.className = "y";
-      year.style.color = "#fff";
-      year.textContent = item.year || "";
-      row.append(year);
-
-      var title = document.createElement("h4");
-      title.style.color = "#fff";
-      title.textContent = item.title || "";
-      row.append(title);
-
-      var description = document.createElement("p");
-      description.style.color = "rgba(245,243,239,.6)";
-      description.textContent = item.description || "";
-      row.append(description);
-
-      timeline.append(row);
-    });
-  }
-
-  function normaliseProfile(profile) {
-    if (Array.isArray(profile)) return profile;
-    if (!profile) return [];
-
-    var rows = [
-      ["会社名", "Company", profile.company],
-      ["設立", "Founded", profile.founded],
-      ["代表者", "CEO", profile.ceo],
-      ["資本金", "Capital", profile.capital],
-      ["所在地", "Address", profile.address],
-      ["事業内容", "Business", profile.business],
-      ["従業員数", "Employees", profile.employees],
-      ["取引銀行", "Bank", profile.bank],
-    ];
-
-    return rows
-      .filter(function (row) {
-        return row[2] !== undefined && row[2] !== null && row[2] !== "";
-      })
-      .map(function (row) {
-        return { label: row[0], sublabel: row[1], value: row[2] };
-      });
-  }
-
-  function renderProfile(profile) {
+  function renderProfile(items) {
     var table = one(".otable");
     if (!table) return;
-
     table.replaceChildren();
-    normaliseProfile(profile).forEach(function (item) {
+    (items || []).forEach(function (item) {
       var row = document.createElement("div");
       row.className = "row";
-
       var dt = document.createElement("dt");
       dt.append(document.createTextNode(item.label || ""));
       if (item.sublabel) {
@@ -327,160 +401,241 @@
         sublabel.textContent = item.sublabel;
         dt.append(sublabel);
       }
-
       var dd = document.createElement("dd");
       dd.textContent = item.value || "";
-
       row.append(dt, dd);
       table.append(row);
     });
   }
 
+  function renderHistory(items) {
+    var timeline = one(".timeline");
+    if (!timeline) return;
+    timeline.replaceChildren();
+    (items || []).forEach(function (item, index) {
+      var row = document.createElement("div");
+      row.className = "tl-item";
+      if (index === 0) row.style.setProperty("--c", "#fff");
+      if (index === items.length - 1) row.style.paddingBottom = "0";
+      var year = document.createElement("div");
+      year.className = "y";
+      year.style.color = "#fff";
+      year.textContent = item.year || "";
+      var title = document.createElement("h4");
+      title.style.color = "#fff";
+      title.textContent = item.title || "";
+      var description = document.createElement("p");
+      description.style.color = "rgba(245,243,239,.6)";
+      description.textContent = item.description || "";
+      row.append(year, title, description);
+      timeline.append(row);
+    });
+  }
+
   function applyProducts(products, global) {
-    text(".page-hero .lead", products.lead);
+    if (!products) return;
+    var hero = products.hero || {};
+    text(".page-hero h1", hero.title);
+    text(".page-hero .lead", hero.lead);
+    renderProductFilters(products.categories, products.items);
+    renderProducts(products.items, global);
+    setupProductFilters();
 
+    var banner = products.banner || {};
+    text(".banner .eyebrow", banner.eyebrow);
+    text(".banner h2", banner.title);
+    text(".banner p", banner.description);
+    image("#pr-banner", banner.image);
+    setButton(one(".banner .btn-fill"), banner.button_label, banner.button_url);
+
+    var bulk = products.bulk || {};
+    text(".section.center .eyebrow", bulk.eyebrow);
+    text(".section.center h2", bulk.title);
+    text(".section.center .lead", bulk.description);
+    setButton(one(".section.center .btn-solid"), bulk.button_label, global.contact_url);
+  }
+
+  function renderProductFilters(categories, items) {
+    var filters = one(".filters");
+    if (!filters) return;
+    var counts = countByCategory(items || []);
+    filters.replaceChildren();
+    (categories || []).forEach(function (category, index) {
+      var button = document.createElement("button");
+      button.className = "chip" + (index === 0 ? " on" : "");
+      button.dataset.f = category.code || "";
+      button.append(document.createTextNode(category.label || ""));
+      var count = document.createElement("span");
+      count.className = "c";
+      count.textContent = String(counts[category.code] || 0).padStart(2, "0");
+      button.append(count);
+      filters.append(button);
+    });
+  }
+
+  function countByCategory(items) {
+    var counts = { all: items.length };
+    items.forEach(function (item) {
+      var category = item.category_code;
+      if (category) counts[category] = (counts[category] || 0) + 1;
+    });
+    return counts;
+  }
+
+  function renderProducts(items, global) {
     var grid = one("#grid");
-    if (grid) {
-      grid.replaceChildren();
-      (products.items || []).forEach(function (item, index) {
-        var card = document.createElement("div");
-        card.className = "pcard";
-        card.dataset.cat = item.category_code || "";
+    if (!grid) return;
+    grid.replaceChildren();
+    (items || []).forEach(function (item, index) {
+      var card = document.createElement("div");
+      card.className = "pcard";
+      card.dataset.cat = item.category_code || "";
 
-        var ph = document.createElement("div");
-        ph.className = "ph";
-        var catSpan = document.createElement("span");
-        catSpan.className = "cat";
-        catSpan.textContent = item.category_label || "";
-        ph.append(catSpan);
-        var slot = document.createElement("image-slot");
-        slot.setAttribute("shape", "rect");
-        slot.setAttribute("fit", "contain");
-        slot.id = "pr-" + (index + 1);
-        slot.setAttribute("placeholder", "製品写真");
-        if (item.image) slot.setAttribute("src", item.image);
-        ph.append(slot);
-        card.append(ph);
+      var ph = document.createElement("div");
+      ph.className = "ph";
+      var catSpan = document.createElement("span");
+      catSpan.className = "cat";
+      catSpan.textContent = item.category_label || "";
+      ph.append(catSpan, createImageSlot({
+        shape: "rect",
+        fit: "contain",
+        id: "pr-" + (index + 1),
+        placeholder: "製品写真",
+        src: item.image,
+      }));
+      card.append(ph);
 
-        var meta = document.createElement("div");
-        meta.className = "meta";
+      var meta = document.createElement("div");
+      meta.className = "meta";
+      appendDiv(meta, "pname", item.name);
+      appendDiv(meta, "pdesc", item.description);
 
-        var pname = document.createElement("div");
-        pname.className = "pname";
-        pname.textContent = item.name || "";
-        meta.append(pname);
-
-        var pdesc = document.createElement("div");
-        pdesc.className = "pdesc";
-        pdesc.textContent = item.description || "";
-        meta.append(pdesc);
-
-        var featTags = document.createElement("div");
-        featTags.className = "feat-tags";
-        (item.features || "").split(",").map(function (v) { return v.trim(); }).filter(Boolean).forEach(function (v) {
-          var span = document.createElement("span");
-          span.textContent = v;
-          featTags.append(span);
-        });
-        meta.append(featTags);
-
-        var pprice = document.createElement("div");
-        pprice.className = "pprice";
-        pprice.textContent = item.price || "";
-        meta.append(pprice);
-
-        var buyRow = document.createElement("div");
-        buyRow.className = "buy-row";
-        var azLink = document.createElement("a");
-        azLink.href = item.amazon_url || global.amazon_url || "#";
-        azLink.setAttribute("onclick", "showKauComingSoon(event)");
-        azLink.className = "buy-btn buy-az";
-        azLink.textContent = "Amazonで購入";
-        buyRow.append(azLink);
-        var rkLink = document.createElement("a");
-        rkLink.href = item.rakuten_url || global.rakuten_url || "#";
-        rkLink.setAttribute("onclick", "showKauComingSoon(event)");
-        rkLink.className = "buy-btn buy-rk";
-        rkLink.textContent = "楽天市場";
-        buyRow.append(rkLink);
-        meta.append(buyRow);
-
-        card.append(meta);
-        grid.append(card);
+      var featTags = document.createElement("div");
+      featTags.className = "feat-tags";
+      (item.features || "").split(",").map(function (v) { return v.trim(); }).filter(Boolean).forEach(function (value) {
+        var span = document.createElement("span");
+        span.textContent = value;
+        featTags.append(span);
       });
+      meta.append(featTags);
+      appendDiv(meta, "pprice", item.price);
 
-      // update filter chip counts based on actual data
-      var items = products.items || [];
-      var counts = { all: items.length };
-      items.forEach(function (item) {
-        var c = item.category_code;
-        if (c) counts[c] = (counts[c] || 0) + 1;
-      });
-      all(".chip[data-f]").forEach(function (chip) {
-        var f = chip.getAttribute("data-f");
-        var countEl = one(".c", chip);
-        if (countEl && counts[f] !== undefined) {
-          countEl.textContent = String(counts[f]).padStart(2, "0");
-        }
-      });
-    }
+      var buyRow = document.createElement("div");
+      buyRow.className = "buy-row";
+      var azLink = document.createElement("a");
+      azLink.href = item.amazon_url || global.amazon_url || "#";
+      azLink.setAttribute("onclick", "showKauComingSoon(event)");
+      azLink.className = "buy-btn buy-az";
+      azLink.textContent = (global.shop || {}).amazon_label || "Amazonで購入";
+      var rkLink = document.createElement("a");
+      rkLink.href = item.rakuten_url || global.rakuten_url || "#";
+      rkLink.setAttribute("onclick", "showKauComingSoon(event)");
+      rkLink.className = "buy-btn buy-rk";
+      rkLink.textContent = (global.shop || {}).rakuten_label || "楽天市場";
+      buyRow.append(azLink, rkLink);
+      meta.append(buyRow);
 
-    text(".banner h2", products.banner_title);
-    text(".banner p", products.banner_description);
-    image("#pr-banner", products.banner_image);
-    text(".section.center h2", products.bulk_title);
-    text(".section.center .lead", products.bulk_description);
-    link(".section.center .btn-solid", global.contact_url);
+      card.append(meta);
+      grid.append(card);
+    });
+  }
+
+  function appendDiv(parent, className, value) {
+    var div = document.createElement("div");
+    div.className = className;
+    div.textContent = value || "";
+    parent.append(div);
   }
 
   function applyNews(news) {
+    if (!news) return;
+    var hero = news.hero || {};
+    text(".page-hero h1", hero.title);
+    text(".page-hero .sub", hero.subtitle);
+
     var featured = one(".news-feat");
     if (featured && news.featured) {
       text(".d", news.featured.date, featured);
       text(".tag-pill", news.featured.category, featured);
       text("h2", news.featured.title, featured);
       text("p", news.featured.summary, featured);
+      text(".btn-line", news.featured.read_more_label, featured);
       if (news.featured.url) featured.href = news.featured.url;
       image("image-slot", news.featured.image, featured);
     }
 
+    renderNewsFilters(news.filters);
     renderNewsItems(news.items);
+    setupNewsFilters();
+    setButton(one(".pager .nx"), news.pager_next_label, "#");
+  }
+
+  function setupProductFilters() {
+    var chips = all(".filters .chip");
+    chips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        chips.forEach(function (item) { item.classList.remove("on"); });
+        chip.classList.add("on");
+        var filter = chip.getAttribute("data-f");
+        all("#grid .pcard").forEach(function (card) {
+          card.classList.toggle("hide", !(filter === "all" || card.getAttribute("data-cat") === filter));
+        });
+      });
+    });
+  }
+
+  function renderNewsFilters(filters) {
+    var container = one(".news-filters");
+    if (!container) return;
+    container.replaceChildren();
+    (filters || []).forEach(function (filter, index) {
+      var button = document.createElement("button");
+      button.className = "chip" + (index === 0 ? " on" : "");
+      button.dataset.f = filter.code || "";
+      button.textContent = filter.label || "";
+      container.append(button);
+    });
+  }
+
+  function setupNewsFilters() {
+    var chips = all(".news-filters .chip");
+    chips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        chips.forEach(function (item) { item.classList.remove("on"); });
+        chip.classList.add("on");
+        var filter = chip.getAttribute("data-f");
+        all("#nlist .nrow2").forEach(function (row) {
+          row.classList.toggle("hide", !(filter === "all" || row.getAttribute("data-cat") === filter));
+        });
+      });
+    });
   }
 
   function renderNewsItems(items) {
     var list = one("#nlist");
     if (!list) return;
-
     list.replaceChildren();
     (items || []).forEach(function (item) {
       var row = document.createElement("a");
       row.href = item.url || "#";
       row.className = "nrow2";
       row.dataset.cat = item.category_code || "";
-
       var date = document.createElement("span");
       date.className = "d";
       date.textContent = item.date || "";
-      row.append(date);
-
       var tagWrap = document.createElement("span");
       tagWrap.className = "t";
       var tag = document.createElement("span");
       tag.className = "tag-pill";
       tag.textContent = item.category || "";
       tagWrap.append(tag);
-      row.append(tagWrap);
-
       var title = document.createElement("span");
       title.className = "h";
       title.textContent = item.title || "";
-      row.append(title);
-
       var action = document.createElement("span");
       action.className = "a";
       action.append(createArrowIcon());
-      row.append(action);
-
+      row.append(date, tagWrap, title, action);
       list.append(row);
     });
   }

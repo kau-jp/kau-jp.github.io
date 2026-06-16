@@ -10,116 +10,302 @@
     "access": "#",
     "contact_url": "#",
     "amazon_url": "#",
-    "rakuten_url": "#"
+    "rakuten_url": "#",
+    "navigation": {
+      "home_label": "ホーム",
+      "home_en": "Home",
+      "about_label": "会社概要",
+      "about_en": "About",
+      "products_label": "製品情報",
+      "products_en": "Products",
+      "news_label": "最新情報",
+      "news_en": "News",
+      "shop_label": "オンラインショップ",
+      "contact_label": "お問い合わせ"
+    },
+    "shop": {
+      "amazon_label": "Amazonで購入",
+      "rakuten_label": "楽天市場で購入",
+      "coming_soon_label": "【 Coming Soon 】",
+      "coming_soon_title": "オンラインショップの開設準備を\n進めております。",
+      "coming_soon_description": "オープンまで、どうぞお楽しみに！"
+    },
+    "footer": {
+      "products_title": "Products",
+      "products_links": [
+        {
+          "label": "オフィスチェア",
+          "url": "products.html"
+        },
+        {
+          "label": "学習チェア",
+          "url": "products.html"
+        },
+        {
+          "label": "エグゼクティブ",
+          "url": "products.html"
+        },
+        {
+          "label": "アクセサリー",
+          "url": "products.html"
+        }
+      ],
+      "company_title": "Company",
+      "company_links": [
+        {
+          "label": "会社概要",
+          "url": "about.html"
+        },
+        {
+          "label": "ブランド",
+          "url": "about.html"
+        },
+        {
+          "label": "最新情報",
+          "url": "news.html"
+        },
+        {
+          "label": "お問い合わせ",
+          "url": "#contact"
+        }
+      ],
+      "support_title": "Support",
+      "support_links": [
+        {
+          "label": "よくあるご質問",
+          "url": "#"
+        },
+        {
+          "label": "保証について",
+          "url": "#"
+        },
+        {
+          "label": "配送・返品",
+          "url": "#"
+        },
+        {
+          "label": "プライバシーポリシー",
+          "url": "#"
+        }
+      ],
+      "copyright": "? 2026 KAU Co., Ltd. All rights reserved.",
+      "suffix": "禾宇株式会社"
+    }
   },
   "home": {
-    "hero_eyebrow": "禾宇株式会社 · Since 2026",
-    "hero_line_1": "毎日の暮らしに、",
-    "hero_accent": "上質な心地よさを。",
-    "hero_suffix": "デザイン性と機能性を兼ね備え、空間の価値を高める一脚をあなたへ。",
-    "hero_subtitle": "オフィスチェアと学習チェアの専門ブランド。人間工学と日本のものづくりが出会う、ふだん使いの上質を。",
-    "hero_image": "/media/macaron-hero.png",
-    "philosophy": "椅子は、一日のほとんどをともに過ごす道具。だからこそ、座り心地と佇まいの両方に、妥協しない。",
-    "showcase_title": "おすすめ",
-    "showcase": [
-      {
-        "category": "Office",
-        "name": "KAU-786-R",
-        "price": "22000",
-        "description": "オフィス/ホームチェア、座り心地良い,アームレスト",
-        "image": "/media/商品_15-1.png"
-      },
-      {
-        "category": "Executive",
-        "name": "KAU-EGG-R",
-        "price": "25000",
-        "description": "オフィス/ホームチェア、メッシュ,ハイバック",
-        "image": "/media/2-4.png"
-      }
-    ],
-    "feature_eyebrow": "毎日の暮らしに、上質な心地よさを。  デザイン性と機能性を兼ね備え、空間の価値を高める一脚をあなたへ。",
-    "feature_title": "Work / Learn / Relax」— あらゆるライ フシーンに、心地よい座り心地を。",
-    "feature_description": "禾宇株式会社は、日本大阪に拠点を置き、\n家具や機械設備の輸出入貿易、卸売・小\n売、および空間デザインを幅広く手がけて\nおります。私たちは、「確かな品質と丁寧\nなものづくりが息づく台湾製製品」を日本\n市場へお届けし、人間工学に基づいた機能\n性と空間を彩るデザイン性を融合させ、日\n常やビジネス空間の理想的なかたちを提案\nしています。",
-    "values": [
-      {
-        "title": "人間工学設計",
-        "description": "からだの構造から逆算した設計。長く座っても疲れにくい姿勢へ、静かに導きます。"
-      },
-      {
-        "title": "日本品質の検品",
-        "description": "耐久試験をクリアした部材のみを使用し、一脚ずつ丁寧に検品してお届けします。"
-      },
-      {
-        "title": "長く使えるケア",
-        "description": "最長3年の機構保証と、部品交換・メンテナンスの専任サポート体制。"
-      }
-    ],
-    "feature_image": "/media/商品_21.png"
+    "hero": {
+      "eyebrow": "禾宇株式会社 · Since 2026",
+      "line_1": "毎日の暮らしに、",
+      "accent": "上質な心地よさを。",
+      "suffix": "デザイン性と機能性を兼ね備え、空間の価値を高める一脚をあなたへ。",
+      "subtitle": "オフィスチェアと学習チェアの専門ブランド。人間工学と日本のものづくりが出会う、ふだん使いの上質を。",
+      "image": "/media/macaron-hero.png",
+      "primary_label": "製品を見る",
+      "primary_url": "products.html",
+      "secondary_label": "KAUについて",
+      "secondary_url": "about.html",
+      "scroll_label": "SCROLL TO EXPLORE"
+    },
+    "philosophy": {
+      "eyebrow": "Philosophy",
+      "title": "椅子は、一日のほとんどをともに過ごす道具。だからこそ、座り心地と佇まいの両方に、妥協しない。"
+    },
+    "showcase": {
+      "eyebrow": "Collection",
+      "title": "おすすめ",
+      "view_all_label": "すべて見る",
+      "view_all_url": "products.html",
+      "items": [
+        {
+          "category": "Office",
+          "name": "KAU-786-R",
+          "price": "22000",
+          "description": "オフィス/ホームチェア、座り心地良い,アームレスト",
+          "image": "/media/商品_15-1.png"
+        },
+        {
+          "category": "Executive",
+          "name": "KAU-EGG-R",
+          "price": "25000",
+          "description": "オフィス/ホームチェア、メッシュ,ハイバック",
+          "image": "/media/2-4.png"
+        }
+      ]
+    },
+    "feature": {
+      "eyebrow": "毎日の暮らしに、上質な心地よさを。  デザイン性と機能性を兼ね備え、空間の価値を高める一脚をあなたへ。",
+      "title": "Work / Learn / Relax」— あらゆるライ フシーンに、心地よい座り心地を。",
+      "description": "禾宇株式会社は、日本大阪に拠点を置き、\n家具や機械設備の輸出入貿易、卸売・小\n売、および空間デザインを幅広く手がけて\nおります。私たちは、「確かな品質と丁寧\nなものづくりが息づく台湾製製品」を日本\n市場へお届けし、人間工学に基づいた機能\n性と空間を彩るデザイン性を融合させ、日\n常やビジネス空間の理想的なかたちを提案\nしています。",
+      "image": "/media/商品_21.png",
+      "stats": [
+        {
+          "value": "12",
+          "suffix": "",
+          "label": "調整ポイント"
+        },
+        {
+          "value": "3",
+          "suffix": "年",
+          "label": "機構保証"
+        },
+        {
+          "value": "136",
+          "suffix": "°",
+          "label": "最大リクライン"
+        },
+        {
+          "value": "110",
+          "suffix": "kg",
+          "label": "耐荷重"
+        }
+      ]
+    },
+    "values": {
+      "items": [
+        {
+          "title": "人間工学設計",
+          "description": "からだの構造から逆算した設計。長く座っても疲れにくい姿勢へ、静かに導きます。"
+        },
+        {
+          "title": "日本品質の検品",
+          "description": "耐久試験をクリアした部材のみを使用し、一脚ずつ丁寧に検品してお届けします。"
+        },
+        {
+          "title": "長く使えるケア",
+          "description": "最長3年の機構保証と、部品交換・メンテナンスの専任サポート体制。"
+        }
+      ]
+    },
+    "cta": {
+      "eyebrow": "Contact",
+      "line_1": "あなたに合う一脚を、",
+      "accent": "いっしょに",
+      "suffix": "探す。",
+      "description": "ショールームでの試座、法人さま向けのご提案も承ります。まずはお気軽にご相談ください。",
+      "image": null,
+      "primary_label": "お問い合わせ",
+      "primary_url": "#",
+      "secondary_label": "カタログ請求",
+      "secondary_url": "products.html"
+    }
   },
   "about": {
-    "statement": "毎日の暮らしに、上質な心地よさを。\nデザイン性と機能性を兼ね備え、空間の価値を高める一脚をあなたへ。",
-    "principles": [
-      {
-        "label": "Work",
-        "title": "集中と効率を支える",
-        "description": "長時間のデスクワークでも、正しい姿勢を自然にキープ。体圧を分散し、腰や肩への負担を軽減することで、仕事のパフォーマンスを最大限に高めます。"
-      },
-      {
-        "label": "Learn",
-        "title": "深い思考を、もっと快適に",
-        "description": "読書や資格の勉強など、知的な探求に没頭できる静かな環境を。心地よいホールド感が雑念を払い、長時間のパフォーマティブな学びをサポートします。"
-      },
-      {
-        "label": "Relax",
-        "title": "心と体をほどく、特等席",
-        "description": "オンからオフへ。リクライニングに身をゆだね、お気に入りの映画やコーヒーを楽しむ至福のひととき。張りつめた緊張を優しくほどいていきます。"
-      }
-    ],
-    "craft_title": "コア強み：台湾製造、信頼のクオリティ",
-    "craft_paragraph_1": "台湾は、世界のオフィス家具を支える重要な製造拠点であり、長年にわたり確かな製造技術で数\n多くのグローバルブランドを支えてきました。その背景にあるのは、台湾が誇る精密かつ高度な\n金型技術と、製造工程の細部にまで妥協しない、地道で実直なものづくりへの姿勢です。\n\n\n禾宇が厳選して取り扱うすべてのチェアは、厳格な耐久性・安全性テストをクリアし、日本人の\n体型やライフスタイルに合わせて構造を最適化しています。「堅牢で長く使える製品を、適正な価\n格で提供する」—これこそが、台湾製（Made in Taiwan）だからこそ実現できる本質的な価値で\nあり、高いコストパフォーマンスです。",
-    "craft_paragraph_2": "なぜ、台湾製なのか。\n\n台湾製が選ばれる理由は、目に見えない部分への「誠実なこだわり」と「実用性の追求」にあり\nます。\n\n私たちが届ける一脚一脚は、開発段階から何度も構造力学テストや人間工学に基づく修正を重\nね、日本人の体型にしっかりと、そして快適にフィットするよう設計されています。華美なプレ\nミアムを追うのではなく、「優れたデザインで、長く寄り添う」という約束を愚直に実践し、耐\n久性と実用性で皆さまの空間を支えます。",
-    "profile": [
-      {
-        "label": "会社名",
-        "sublabel": "Company",
-        "value": "禾宇株式会社（KAU Co., Ltd.）"
-      },
-      {
-        "label": "設立",
-        "sublabel": "Founded",
-        "value": "2026年5月10日"
-      },
-      {
-        "label": "代表者",
-        "sublabel": "CEO",
-        "value": "代表取締役　WU YING CHEN"
-      },
-      {
-        "label": "資本金",
-        "sublabel": "Capital",
-        "value": "3,000万円"
-      },
-      {
-        "label": "所在地",
-        "sublabel": "Address",
-        "value": "大阪府大阪市西区阿波座2丁目 2-21 303号"
-      },
-      {
-        "label": "事業内容",
-        "sublabel": "Business",
-        "value": "オフィスチェア・学習チェアの企画、製造、販売／オフィス家具のOEM・法人向け導入支援"
-      }
-    ],
-    "history": [
-      {
-        "year": "2026",
-        "title": "禾宇株式会社 設立",
-        "description": "2026/5/10"
-      }
-    ]
+    "hero": {
+      "title": "会社概要",
+      "subtitle": "About KAU"
+    },
+    "statement": {
+      "text": "毎日の暮らしに、上質な心地よさを。\nデザイン性と機能性を兼ね備え、空間の価値を高める一脚をあなたへ。"
+    },
+    "principles": {
+      "items": [
+        {
+          "label": "Work",
+          "title": "集中と効率を支える",
+          "description": "長時間のデスクワークでも、正しい姿勢を自然にキープ。体圧を分散し、腰や肩への負担を軽減することで、仕事のパフォーマンスを最大限に高めます。"
+        },
+        {
+          "label": "Learn",
+          "title": "深い思考を、もっと快適に",
+          "description": "読書や資格の勉強など、知的な探求に没頭できる静かな環境を。心地よいホールド感が雑念を払い、長時間のパフォーマティブな学びをサポートします。"
+        },
+        {
+          "label": "Relax",
+          "title": "心と体をほどく、特等席",
+          "description": "オンからオフへ。リクライニングに身をゆだね、お気に入りの映画やコーヒーを楽しむ至福のひととき。張りつめた緊張を優しくほどいていきます。"
+        }
+      ]
+    },
+    "craft": {
+      "eyebrow": "Our Craft",
+      "title": "コア強み：台湾製造、信頼のクオリティ",
+      "description_1": "台湾は、世界のオフィス家具を支える重要な製造拠点であり、長年にわたり確かな製造技術で数\n多くのグローバルブランドを支えてきました。その背景にあるのは、台湾が誇る精密かつ高度な\n金型技術と、製造工程の細部にまで妥協しない、地道で実直なものづくりへの姿勢です。\n\n\n禾宇が厳選して取り扱うすべてのチェアは、厳格な耐久性・安全性テストをクリアし、日本人の\n体型やライフスタイルに合わせて構造を最適化しています。「堅牢で長く使える製品を、適正な価\n格で提供する」—これこそが、台湾製（Made in Taiwan）だからこそ実現できる本質的な価値で\nあり、高いコストパフォーマンスです。",
+      "description_2": "なぜ、台湾製なのか。\n\n台湾製が選ばれる理由は、目に見えない部分への「誠実なこだわり」と「実用性の追求」にあり\nます。\n\n私たちが届ける一脚一脚は、開発段階から何度も構造力学テストや人間工学に基づく修正を重\nね、日本人の体型にしっかりと、そして快適にフィットするよう設計されています。華美なプレ\nミアムを追うのではなく、「優れたデザインで、長く寄り添う」という約束を愚直に実践し、耐\n久性と実用性で皆さまの空間を支えます。",
+      "image": null
+    },
+    "profile": {
+      "eyebrow": "Company Profile",
+      "title": "会社概要",
+      "items": [
+        {
+          "label": "会社名",
+          "sublabel": "Company",
+          "value": "禾宇株式会社（KAU Co., Ltd.）"
+        },
+        {
+          "label": "設立",
+          "sublabel": "Founded",
+          "value": "2026年5月10日"
+        },
+        {
+          "label": "代表者",
+          "sublabel": "CEO",
+          "value": "代表取締役　WU YING CHEN"
+        },
+        {
+          "label": "資本金",
+          "sublabel": "Capital",
+          "value": "3,000万円"
+        },
+        {
+          "label": "所在地",
+          "sublabel": "Address",
+          "value": "大阪府大阪市西区阿波座2丁目 2-21 303号"
+        },
+        {
+          "label": "事業内容",
+          "sublabel": "Business",
+          "value": "オフィスチェア・学習チェアの企画、製造、販売／オフィス家具のOEM・法人向け導入支援"
+        }
+      ]
+    },
+    "history": {
+      "eyebrow": "History",
+      "title": "沿革",
+      "items": [
+        {
+          "year": "2026",
+          "title": "禾宇株式会社 設立",
+          "description": "2026/5/10"
+        }
+      ]
+    },
+    "access": {
+      "eyebrow": "Access",
+      "title": "アクセス・お問い合わせ",
+      "place_name": "本社・ショールーム",
+      "map_image": null,
+      "button_label": "お問い合わせフォーム"
+    }
   },
   "products": {
-    "lead": "暮らしのすべてを快適に。",
+    "hero": {
+      "title": "製品情報",
+      "subtitle": "Products",
+      "lead": "暮らしのすべてを快適に。"
+    },
+    "categories": [
+      {
+        "code": "all",
+        "label": "すべて"
+      },
+      {
+        "code": "office",
+        "label": "オフィスチェア"
+      },
+      {
+        "code": "study",
+        "label": "学習チェア"
+      },
+      {
+        "code": "exec",
+        "label": "エグゼクティブ"
+      },
+      {
+        "code": "acc",
+        "label": "アクセサリー"
+      }
+    ],
     "items": [
       {
         "category_code": "study",
@@ -255,14 +441,104 @@
         "image": "/media/商品_23.png"
       }
     ],
-    "banner_title": "柔軟で確かなクロスボーダー・サプライチェーン",
-    "banner_description": "上質な暮らしを求める個人のお客さまから、大口調達を検討される法人企業さままで、効率的で最適なサプライチェーンをご提案いたします。",
-    "bulk_description": "小規模なロットでの調\n達を希望される法人の\nお客さま、個人のお客\nさまのご注文も大歓迎\nです。\n\n法人・大口注文承りま\nす。\n\n#Made in Taiwan\n#個人  #法人小ロット\n#法人大ロット",
-    "bulk_title": "品質保証、個人販売 、大口注文/卸売り。台湾製、信頼のクオリ ティ。"
+    "banner": {
+      "eyebrow": "Flagship ? Ergo One",
+      "title": "柔軟で確かなクロスボーダー・サプライチェーン",
+      "description": "上質な暮らしを求める個人のお客さまから、大口調達を検討される法人企業さままで、効率的で最適なサプライチェーンをご提案いたします。",
+      "image": null,
+      "button_label": "詳細を見る",
+      "button_url": "#"
+    },
+    "bulk": {
+      "eyebrow": "Bulk & OEM",
+      "title": "品質保証、個人販売 、大口注文/卸売り。台湾製、信頼のクオリ ティ。",
+      "description": "小規模なロットでの調\n達を希望される法人の\nお客さま、個人のお客\nさまのご注文も大歓迎\nです。\n\n法人・大口注文承りま\nす。\n\n#Made in Taiwan\n#個人  #法人小ロット\n#法人大ロット",
+      "button_label": "導入のご相談"
+    }
   },
   "news": {
+    "hero": {
+      "title": "最新情報",
+      "subtitle": "News & Topics"
+    },
     "featured": {
-      "url": "#"
-    }
+      "date": "2026.05.20",
+      "category": "製品",
+      "title": "新作オフィスチェア「KAU Flow Mesh」発売のお知らせ",
+      "summary": "軽量・高通気のフルメッシュを採用した新世代ワークチェア「KAU Flow Mesh」を発売しました。長時間のデスクワークを、より快適に。",
+      "url": "#",
+      "image": null,
+      "read_more_label": "続きを読む"
+    },
+    "filters": [
+      {
+        "code": "all",
+        "label": "すべて"
+      },
+      {
+        "code": "product",
+        "label": "製品"
+      },
+      {
+        "code": "event",
+        "label": "展示会・イベント"
+      },
+      {
+        "code": "info",
+        "label": "お知らせ"
+      }
+    ],
+    "items": [
+      {
+        "date": "2026.04.08",
+        "category_code": "event",
+        "category": "展示会",
+        "title": "東京インテリアショー2026 出展のご案内",
+        "url": "#"
+      },
+      {
+        "date": "2026.03.15",
+        "category_code": "info",
+        "category": "お知らせ",
+        "title": "学習チェア「KAU Grow」がグッドデザイン賞を受賞しました",
+        "url": "#"
+      },
+      {
+        "date": "2026.02.27",
+        "category_code": "product",
+        "category": "製品",
+        "title": "「KAU Grow Plus」3D調整機構モデルを追加",
+        "url": "#"
+      },
+      {
+        "date": "2026.01.20",
+        "category_code": "info",
+        "category": "お知らせ",
+        "title": "年末年始の出荷・サポート休業日について",
+        "url": "#"
+      },
+      {
+        "date": "2025.11.12",
+        "category_code": "event",
+        "category": "展示会",
+        "title": "大阪オフィス家具EXPO 出展レポート",
+        "url": "#"
+      },
+      {
+        "date": "2025.09.30",
+        "category_code": "product",
+        "category": "製品",
+        "title": "エグゼクティブ「KAU Noir Lite」発売",
+        "url": "#"
+      },
+      {
+        "date": "2025.08.05",
+        "category_code": "info",
+        "category": "お知らせ",
+        "title": "ショールーム来場予約システムを開始しました",
+        "url": "#"
+      }
+    ],
+    "pager_next_label": "次へ"
   }
 }

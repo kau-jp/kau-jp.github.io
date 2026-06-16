@@ -15,169 +15,357 @@ settings:
 
 content:
   - name: site
-    label: KAU 網站內容
+    label: KAU 區塊式後台
     type: file
     path: content/site.json
     format: json
     fields:
       - name: global
-        label: 共用設定
+        label: 00 全站共用：選單、聯絡資訊、頁尾
         type: object
         fields:
-          - { name: company_name, label: 公司名稱, type: string }
-          - { name: postal_code, label: 郵遞區號, type: string }
-          - { name: address_line_1, label: 地址第一行, type: string }
-          - { name: address_line_2, label: 地址第二行, type: string }
-          - { name: phone, label: 電話, type: string }
-          - { name: email, label: Email, type: string }
-          - { name: hours, label: 營業時間, type: string }
-          - { name: access, label: 交通方式, type: string }
-          - { name: contact_url, label: 聯絡表單網址, type: string }
+          - { name: company_name, label: 公司名稱（頁尾/共用）, type: string }
+          - { name: postal_code, label: 郵遞區號（頁尾/公司地址）, type: string }
+          - { name: address_line_1, label: 地址第一行（頁尾/聯絡區）, type: string }
+          - { name: address_line_2, label: 地址第二行（頁尾/聯絡區）, type: string }
+          - { name: phone, label: 電話（公司介紹 > 聯絡區）, type: string }
+          - { name: email, label: Email（公司介紹 > 聯絡區）, type: string }
+          - { name: hours, label: 營業時間（公司介紹 > 聯絡區）, type: string }
+          - { name: access, label: 交通方式（公司介紹 > 聯絡區）, type: string }
+          - { name: contact_url, label: 聯絡表單網址（所有聯絡按鈕）, type: string }
           - { name: amazon_url, label: Amazon 商店網址, type: string }
           - { name: rakuten_url, label: 樂天商店網址, type: string }
+          - name: navigation
+            label: 00-A 上方選單文字
+            type: object
+            fields:
+              - { name: home_label, label: 首頁選單：日文, type: string }
+              - { name: home_en, label: 首頁選單：英文小字, type: string }
+              - { name: about_label, label: 公司概要選單：日文, type: string }
+              - { name: about_en, label: 公司概要選單：英文小字, type: string }
+              - { name: products_label, label: 製品情報選單：日文, type: string }
+              - { name: products_en, label: 製品情報選單：英文小字, type: string }
+              - { name: news_label, label: 最新情報選單：日文, type: string }
+              - { name: news_en, label: 最新情報選單：英文小字, type: string }
+              - { name: shop_label, label: 線上商店按鈕文字, type: string }
+              - { name: contact_label, label: 聯絡按鈕文字, type: string }
+          - name: shop
+            label: 00-B 線上商店彈窗與下拉選單
+            type: object
+            fields:
+              - { name: amazon_label, label: Amazon 選項文字, type: string }
+              - { name: rakuten_label, label: 樂天選項文字, type: string }
+              - { name: coming_soon_label, label: 彈窗小標, type: string }
+              - { name: coming_soon_title, label: 彈窗主文字, type: text }
+              - { name: coming_soon_description, label: 彈窗說明, type: text }
+          - name: footer
+            label: 00-C 頁尾連結區
+            type: object
+            fields:
+              - { name: products_title, label: 頁尾 Products 標題, type: string }
+              - name: products_links
+                label: 頁尾 Products 連結
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{label}"
+                fields:
+                  - { name: label, label: 連結文字, type: string }
+                  - { name: url, label: 連結網址, type: string }
+              - { name: company_title, label: 頁尾 Company 標題, type: string }
+              - name: company_links
+                label: 頁尾 Company 連結
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{label}"
+                fields:
+                  - { name: label, label: 連結文字, type: string }
+                  - { name: url, label: 連結網址, type: string }
+              - { name: support_title, label: 頁尾 Support 標題, type: string }
+              - name: support_links
+                label: 頁尾 Support 連結
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{label}"
+                fields:
+                  - { name: label, label: 連結文字, type: string }
+                  - { name: url, label: 連結網址, type: string }
+              - { name: copyright, label: 頁尾版權文字, type: string }
+              - { name: suffix, label: 頁尾右側公司名, type: string }
 
       - name: home
-        label: 首頁
+        label: 01 首頁 Home：照畫面由上到下
         type: object
         fields:
-          - { name: hero_eyebrow, label: 首頁小標, type: string }
-          - { name: hero_line_1, label: 首頁主標第一行, type: string }
-          - { name: hero_accent, label: 首頁金色文字, type: string }
-          - { name: hero_suffix, label: 首頁主標結尾, type: string }
-          - { name: hero_subtitle, label: 首頁說明, type: text }
-          - { name: hero_image, label: 首頁主圖, type: image, required: false }
-          - { name: philosophy, label: 品牌理念, type: text }
-          - { name: showcase_title, label: 精選商品標題, type: string }
+          - name: hero
+            label: 01-A 首頁第一屏：大圖、大標題、兩個按鈕
+            type: object
+            fields:
+              - { name: eyebrow, label: 小標（大標上方金色字）, type: string }
+              - { name: line_1, label: 大標第一行, type: string }
+              - { name: accent, label: 大標金色文字, type: string }
+              - { name: suffix, label: 大標結尾文字, type: string }
+              - { name: subtitle, label: 大標下方說明, type: text }
+              - { name: image, label: 背景主圖, type: image, required: false }
+              - { name: primary_label, label: 左側按鈕文字, type: string }
+              - { name: primary_url, label: 左側按鈕網址, type: string }
+              - { name: secondary_label, label: 右側按鈕文字, type: string }
+              - { name: secondary_url, label: 右側按鈕網址, type: string }
+              - { name: scroll_label, label: 左下角 Scroll 文字, type: string }
+          - name: philosophy
+            label: 01-B 首頁理念區：大段文字
+            type: object
+            fields:
+              - { name: eyebrow, label: 區塊小標, type: string }
+              - { name: title, label: 理念大文字, type: text }
           - name: showcase
-            label: 首頁精選商品
+            label: 01-C 首頁精選商品區：商品卡片可增刪
             type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{name}"
             fields:
-              - { name: category, label: 分類, type: string }
-              - { name: name, label: 商品名稱, type: string }
-              - { name: price, label: 價格, type: string }
-              - { name: description, label: 簡短說明, type: string }
-              - { name: image, label: 商品圖片, type: image, required: false }
-          - { name: feature_eyebrow, label: 主打商品小標, type: string }
-          - { name: feature_title, label: 主打商品標題, type: string }
-          - { name: feature_description, label: 主打商品說明, type: text }
-          - { name: feature_image, label: 主打商品圖片, type: image, required: false }
-          - name: values
-            label: 品牌價值
+              - { name: eyebrow, label: 區塊小標, type: string }
+              - { name: title, label: 區塊標題, type: string }
+              - { name: view_all_label, label: 右側「看全部」按鈕文字, type: string }
+              - { name: view_all_url, label: 右側「看全部」按鈕網址, type: string }
+              - name: items
+                label: 精選商品卡片
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{name}"
+                fields:
+                  - { name: category, label: 卡片分類標籤, type: string }
+                  - { name: name, label: 商品名稱, type: string }
+                  - { name: price, label: 價格, type: string, required: false }
+                  - { name: description, label: 簡短說明, type: string }
+                  - { name: image, label: 商品圖片, type: image, required: false }
+          - name: feature
+            label: 01-D 首頁主打區：左圖右文與數字
             type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{title}"
             fields:
+              - { name: eyebrow, label: 小標, type: text }
               - { name: title, label: 標題, type: string }
               - { name: description, label: 說明, type: text }
-          - { name: cta_line_1, label: 聯絡區標題第一行, type: string }
-          - { name: cta_accent, label: 聯絡區強調文字, type: string }
-          - { name: cta_suffix, label: 聯絡區標題結尾, type: string }
-          - { name: cta_description, label: 聯絡區說明, type: text }
-          - { name: cta_image, label: 聯絡區背景圖, type: image, required: false }
+              - { name: image, label: 左側圖片, type: image, required: false }
+              - name: stats
+                label: 下方數字指標
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{label}"
+                fields:
+                  - { name: value, label: 數字, type: string }
+                  - { name: suffix, label: 單位/後綴, type: string, required: false }
+                  - { name: label, label: 指標名稱, type: string }
+          - name: values
+            label: 01-E 首頁品牌價值卡片：可增刪
+            type: object
+            fields:
+              - name: items
+                label: 品牌價值卡片
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - { name: title, label: 標題, type: string }
+                  - { name: description, label: 說明, type: text }
+          - name: cta
+            label: 01-F 首頁最下方聯絡區
+            type: object
+            fields:
+              - { name: eyebrow, label: 小標, type: string }
+              - { name: line_1, label: 大標第一行, type: string }
+              - { name: accent, label: 大標金色文字, type: string }
+              - { name: suffix, label: 大標結尾文字, type: string }
+              - { name: description, label: 說明, type: text }
+              - { name: image, label: 背景圖, type: image, required: false }
+              - { name: primary_label, label: 左側按鈕文字, type: string }
+              - { name: primary_url, label: 左側按鈕網址, type: string }
+              - { name: secondary_label, label: 右側按鈕文字, type: string }
+              - { name: secondary_url, label: 右側按鈕網址, type: string }
 
       - name: about
-        label: 公司介紹
+        label: 02 公司介紹 About：照畫面由上到下
         type: object
         fields:
-          - { name: statement, label: 公司主張, type: text }
-          - name: principles
-            label: 理念
+          - name: hero
+            label: 02-A 公司介紹頁首
             type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{title}"
             fields:
-              - { name: label, label: 英文小標, type: string }
+              - { name: title, label: 頁面大標題, type: string }
+              - { name: subtitle, label: 頁面英文小標, type: string }
+          - name: statement
+            label: 02-B 公司主張大文字
+            type: object
+            fields:
+              - { name: text, label: 大段文字, type: text }
+          - name: principles
+            label: 02-C 三張理念卡片：可增刪
+            type: object
+            fields:
+              - name: items
+                label: 理念卡片
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - { name: label, label: 英文小標, type: string }
+                  - { name: title, label: 標題, type: string }
+                  - { name: description, label: 說明, type: text }
+          - name: craft
+            label: 02-D 製作理念/品牌強項：左圖右文
+            type: object
+            fields:
+              - { name: eyebrow, label: 小標, type: string }
               - { name: title, label: 標題, type: string }
-              - { name: description, label: 說明, type: text }
-          - { name: craft_title, label: 製作理念標題, type: string }
-          - { name: craft_paragraph_1, label: 製作理念第一段, type: text }
-          - { name: craft_paragraph_2, label: 製作理念第二段, type: text }
-          - { name: craft_image, label: 製作理念圖片, type: image, required: false }
+              - { name: description_1, label: 第一段文字, type: text }
+              - { name: description_2, label: 第二段文字, type: text }
+              - { name: image, label: 左側圖片, type: image, required: false }
           - name: profile
-            label: 公司資料
+            label: 02-E 公司資料表：欄位可增刪
+            type: object
+            fields:
+              - { name: eyebrow, label: 小標, type: string }
+              - { name: title, label: 區塊標題, type: string }
+              - name: items
+                label: 公司資料列
+                type: object
+                list:
+                  min: 1
+                  collapsible:
+                    collapsed: true
+                    summary: "{label}"
+                fields:
+                  - { name: label, label: 欄位名稱, type: string }
+                  - { name: sublabel, label: 英文小標, type: string, required: false }
+                  - { name: value, label: 內容, type: text }
+          - name: history
+            label: 02-F 公司沿革：年份列可增刪
+            type: object
+            fields:
+              - { name: eyebrow, label: 小標, type: string }
+              - { name: title, label: 區塊標題, type: string }
+              - name: items
+                label: 沿革列表
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{year} {title}"
+                fields:
+                  - { name: year, label: 年份, type: string }
+                  - { name: title, label: 標題, type: string }
+                  - { name: description, label: 說明, type: text }
+          - name: access
+            label: 02-G 地圖與聯絡區
+            type: object
+            fields:
+              - { name: eyebrow, label: 小標, type: string }
+              - { name: title, label: 區塊標題, type: string }
+              - { name: place_name, label: 地點名稱, type: string }
+              - { name: map_image, label: 地圖圖片, type: image, required: false }
+              - { name: button_label, label: 聯絡按鈕文字, type: string }
+
+      - name: products
+        label: 03 產品頁 Products：分類、產品、橫幅
+        type: object
+        fields:
+          - name: hero
+            label: 03-A 產品頁頁首
+            type: object
+            fields:
+              - { name: title, label: 頁面大標題, type: string }
+              - { name: subtitle, label: 頁面英文小標, type: string }
+              - { name: lead, label: 頁首說明, type: text }
+          - name: categories
+            label: 03-B 產品分類按鈕：可增刪
             type: object
             list:
-              min: 1
               collapsible:
                 collapsed: true
                 summary: "{label}"
             fields:
-              - { name: label, label: 欄位名稱, type: string }
-              - { name: sublabel, label: 英文小標, type: string, required: false }
-              - { name: value, label: 內容, type: text }
-          - name: history
-            label: 公司沿革
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{year} {title}"
-            fields:
-              - { name: year, label: 年份, type: string }
-              - { name: title, label: 標題, type: string }
-              - { name: description, label: 說明, type: text }
-          - { name: map_image, label: 地圖圖片, type: image, required: false }
-
-      - name: products
-        label: 產品頁
-        type: object
-        fields:
-          - { name: lead, label: 頁首說明, type: text }
+              - { name: code, label: 分類代碼（all/office/study/exec/acc）, type: string }
+              - { name: label, label: 按鈕顯示文字, type: string }
           - name: items
-            label: 產品清單
+            label: 03-C 產品清單：商品卡片可增刪
             type: object
             list:
               collapsible:
                 collapsed: true
                 summary: "{name}"
             fields:
-              - name: category_code
-                label: 分類代碼
-                type: select
-                options:
-                  values:
-                    - { name: office, label: Office }
-                    - { name: study, label: Study }
-                    - { name: exec, label: Executive }
-                    - { name: acc, label: Accessory }
-              - { name: category_label, label: 顯示分類, type: string }
+              - { name: category_code, label: 分類代碼（要對應分類按鈕）, type: string }
+              - { name: category_label, label: 商品卡片分類文字, type: string }
               - { name: name, label: 商品名稱, type: string }
               - { name: description, label: 商品說明, type: string }
-              - { name: features, label: 特色（逗號分隔）, type: string }
-              - { name: price, label: 價格, type: string }
-              - { name: amazon_url, label: Amazon 商品網址, type: string }
-              - { name: rakuten_url, label: 樂天商品網址, type: string }
+              - { name: features, label: 特色（逗號分隔）, type: string, required: false }
+              - { name: price, label: 價格, type: string, required: false }
+              - { name: amazon_url, label: Amazon 商品網址, type: string, required: false }
+              - { name: rakuten_url, label: 樂天商品網址, type: string, required: false }
               - { name: image, label: 商品圖片, type: image, required: false }
-          - { name: banner_title, label: 主打橫幅標題, type: string }
-          - { name: banner_description, label: 主打橫幅說明, type: text }
-          - { name: banner_image, label: 主打橫幅圖片, type: image, required: false }
-          - { name: bulk_title, label: 法人服務標題, type: string }
-          - { name: bulk_description, label: 法人服務說明, type: text }
+          - name: banner
+            label: 03-D 產品頁主打橫幅
+            type: object
+            fields:
+              - { name: eyebrow, label: 小標, type: string }
+              - { name: title, label: 標題, type: string }
+              - { name: description, label: 說明, type: text }
+              - { name: image, label: 圖片, type: image, required: false }
+              - { name: button_label, label: 按鈕文字, type: string }
+              - { name: button_url, label: 按鈕網址, type: string }
+          - name: bulk
+            label: 03-E 法人/OEM 區塊
+            type: object
+            fields:
+              - { name: eyebrow, label: 小標, type: string }
+              - { name: title, label: 標題, type: string }
+              - { name: description, label: 說明, type: text }
+              - { name: button_label, label: 按鈕文字, type: string }
 
       - name: news
-        label: 最新消息
+        label: 04 最新消息 News：置頂、分類、消息清單
         type: object
         fields:
+          - name: hero
+            label: 04-A 最新消息頁首
+            type: object
+            fields:
+              - { name: title, label: 頁面大標題, type: string }
+              - { name: subtitle, label: 頁面英文小標, type: string }
           - name: featured
-            label: 置頂消息
+            label: 04-B 置頂消息大卡片
             type: object
             fields:
               - { name: date, label: 日期, type: string }
-              - { name: category, label: 分類, type: string }
+              - { name: category, label: 分類文字, type: string }
               - { name: title, label: 標題, type: string }
               - { name: summary, label: 摘要, type: text }
               - { name: url, label: 連結, type: string }
               - { name: image, label: 圖片, type: image, required: false }
+              - { name: read_more_label, label: 閱讀更多文字, type: string }
+          - name: filters
+            label: 04-C 消息分類按鈕：可增刪
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{label}"
+            fields:
+              - { name: code, label: 分類代碼（all/product/event/info）, type: string }
+              - { name: label, label: 按鈕顯示文字, type: string }
           - name: items
-            label: 消息清單
+            label: 04-D 消息清單：可增刪
             type: object
             list:
               collapsible:
@@ -185,14 +373,8 @@ content:
                 summary: "{date} {title}"
             fields:
               - { name: date, label: 日期, type: string }
-              - name: category_code
-                label: 分類代碼
-                type: select
-                options:
-                  values:
-                    - { name: product, label: 製品 }
-                    - { name: event, label: 展示會 }
-                    - { name: info, label: お知らせ }
+              - { name: category_code, label: 分類代碼（要對應分類按鈕）, type: string }
               - { name: category, label: 顯示分類, type: string }
               - { name: title, label: 標題, type: string }
               - { name: url, label: 連結, type: string }
+          - { name: pager_next_label, label: 下方「次へ」文字, type: string }
