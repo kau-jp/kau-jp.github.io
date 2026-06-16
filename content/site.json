@@ -286,62 +286,7 @@
   },
   "news": {
     "featured": {
-      "date": "2026.05.20",
-      "category": "製品",
-      "title": "新作オフィスチェア「KAU Flow Mesh」発売のお知らせ",
-      "summary": "軽量・高通気のフルメッシュを採用した新世代ワークチェア「KAU Flow Mesh」を発売しました。長時間のデスクワークを、より快適に。",
       "url": "#"
-    },
-    "items": [
-      {
-        "date": "2026.04.08",
-        "category_code": "event",
-        "category": "展示会",
-        "title": "東京インテリアショー2026 出展のご案内",
-        "url": "#"
-      },
-      {
-        "date": "2026.03.15",
-        "category_code": "info",
-        "category": "お知らせ",
-        "title": "学習チェア「KAU Grow」がグッドデザイン賞を受賞しました",
-        "url": "#"
-      },
-      {
-        "date": "2026.02.27",
-        "category_code": "product",
-        "category": "製品",
-        "title": "「KAU Grow Plus」3D調整機構モデルを追加",
-        "url": "#"
-      },
-      {
-        "date": "2026.01.20",
-        "category_code": "info",
-        "category": "お知らせ",
-        "title": "年末年始の出荷・サポート休業日について",
-        "url": "#"
-      },
-      {
-        "date": "2025.11.12",
-        "category_code": "event",
-        "category": "展示会",
-        "title": "大阪オフィス家具EXPO 出展レポート",
-        "url": "#"
-      },
-      {
-        "date": "2025.09.30",
-        "category_code": "product",
-        "category": "製品",
-        "title": "エグゼクティブ「KAU Noir Lite」発売",
-        "url": "#"
-      },
-      {
-        "date": "2025.08.05",
-        "category_code": "info",
-        "category": "お知らせ",
-        "title": "ショールーム来場予約システムを開始しました",
-        "url": "#"
-      }
-    ]
+    }
   }
 }
