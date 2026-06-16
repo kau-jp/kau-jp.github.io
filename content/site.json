@@ -28,6 +28,13 @@
         "price": "22000",
         "description": "オフィス/ホームチェア、座り心地良い,アームレスト",
         "image": "/media/商品_15-1.png"
+      },
+      {
+        "category": "Executive",
+        "name": "KAU-EGG-R",
+        "price": "25000",
+        "description": "オフィス/ホームチェア、メッシュ,ハイバック",
+        "image": "/media/2-4.png"
       }
     ],
     "feature_eyebrow": "Signature — Ergo One",
