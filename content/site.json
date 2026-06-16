@@ -136,29 +136,9 @@
     ],
     "history": [
       {
-        "year": "2014",
-        "title": "禾宇株式会社 設立",
-        "description": "東京・千代田区にてオフィスチェアの企画・販売を開始。"
-      },
-      {
-        "year": "2017",
-        "title": "学習チェアシリーズを発表",
-        "description": "成長に寄り添うキッズ・学習チェア「KAU Grow」を発売。"
-      },
-      {
-        "year": "2020",
-        "title": "自社ショールーム開設",
-        "description": "実際に試座できるショールームをオープン。法人導入支援を本格化。"
-      },
-      {
-        "year": "2023",
-        "title": "フルメッシュ「Flow」シリーズ",
-        "description": "軽量・通気性に優れた新世代チェアを開発。"
-      },
-      {
         "year": "2026",
-        "title": "グッドデザイン賞 受賞",
-        "description": "学習チェア「KAU Grow」がグッドデザイン賞を受賞。"
+        "title": "禾宇株式会社 設立",
+        "description": "2026/5/10"
       }
     ]
   },
@@ -166,23 +146,23 @@
     "lead": "オフィスから学習空間まで。姿勢を支える、KAUのチェアコレクション。",
     "items": [
       {
-        "category_code": "office",
-        "category_label": "Office",
+        "category_code": "study",
+        "category_label": "Study",
         "name": "KAU-006-R",
-        "description": "フラッグシップ・ワークチェア",
-        "features": "メッシュ, ランバー, 多段リクライン",
-        "price": "¥48,000",
+        "description": "コンパクトチェア",
+        "features": "軽量",
+        "price": "6000",
         "amazon_url": "#",
         "rakuten_url": "#",
         "image": "/media/商品_1.png"
       },
       {
-        "category_code": "office",
-        "category_label": "Office",
+        "category_code": "study",
+        "category_label": "Study",
         "name": "KAU-006",
-        "description": "軽量フルメッシュチェア",
-        "features": "フルメッシュ, 軽量, 通気性",
-        "price": "¥39,800",
+        "description": "コンパクトチェア",
+        "features": "軽量",
+        "price": "6000",
         "amazon_url": "#",
         "rakuten_url": "#",
         "image": "/media/商品_4-1.png"
@@ -192,19 +172,19 @@
         "category_label": "Study",
         "name": "KAU-006-FTLL",
         "description": "成長対応・学習チェア",
-        "features": "高さ調整, 足置き, 姿勢サポート",
-        "price": "¥32,000",
+        "features": "高さ調整, 足置き,回転ロック",
+        "price": "12000",
         "amazon_url": "#",
         "rakuten_url": "#",
         "image": "/media/商品_5-2.png"
       },
       {
-        "category_code": "exec",
-        "category_label": "Executive",
+        "category_code": "study",
+        "category_label": "Study",
         "name": "KAU-006-FT",
-        "description": "本革エグゼクティブチェア",
-        "features": "本革, ハイバック, 重厚",
-        "price": "¥98,000",
+        "description": "成長対応・学習チェア",
+        "features": "高さ調整,足置き",
+        "price": "6000",
         "amazon_url": "#",
         "rakuten_url": "#",
         "image": "/media/商品_8-1.png"
@@ -213,42 +193,42 @@
         "category_code": "study",
         "category_label": "Study",
         "name": "KAU-88N",
-        "description": "キッズ・コンパクトチェア",
-        "features": "コンパクト, 軽量, キャスター",
-        "price": "¥24,000",
+        "description": "成長対応・学習チェア",
+        "features": "メッシュ,足置き",
+        "price": "19800",
         "amazon_url": "#",
         "rakuten_url": "#",
         "image": "/media/商品_9.png"
       },
       {
-        "category_code": "office",
-        "category_label": "Office",
+        "category_code": "study",
+        "category_label": "Study",
         "name": "KAU-525N-FTLL",
-        "description": "スタンダード・タスクチェア",
-        "features": "コスパ, シンプル",
-        "price": "¥21,800",
+        "description": "成長対応・学習チェア",
+        "features": "座り心地良い,足置き,回転ロック",
+        "price": "19000",
         "amazon_url": "#",
         "rakuten_url": "#",
         "image": "/media/商品_11-1.png"
       },
       {
-        "category_code": "acc",
-        "category_label": "Accessory",
+        "category_code": "office",
+        "category_label": "Office",
         "name": "KAU-730-R",
-        "description": "高さ調整フットレスト",
-        "features": "高さ調整, 傾斜",
-        "price": "¥6,800",
+        "description": "オフィス/ホームチェア",
+        "features": "座り心地良い",
+        "price": "13000",
         "amazon_url": "#",
         "rakuten_url": "#",
         "image": "/media/商品_13.png"
       },
       {
-        "category_code": "study",
-        "category_label": "Study",
+        "category_code": "office",
+        "category_label": "Office",
         "name": "KAU-786-R",
-        "description": "学習チェア・上位モデル",
-        "features": "3D調整, 姿勢サポート",
-        "price": "¥42,000",
+        "description": "オフィス/ホームチェア",
+        "features": "座り心地良い,アームレスト",
+        "price": "22000",
         "amazon_url": "#",
         "rakuten_url": "#",
         "image": "/media/商品_15-1.png"
@@ -257,27 +237,45 @@
         "category_code": "exec",
         "category_label": "Executive",
         "name": "KAU-EGG-R",
-        "description": "合皮エグゼクティブチェア",
-        "features": "合皮, ハイバック",
-        "price": "¥58,000",
+        "description": "オフィス/ホームチェア",
+        "features": "メッシュ,ハイバック",
+        "price": "25000",
         "amazon_url": "#",
         "rakuten_url": "#",
         "image": "/media/商品_18.png"
       },
       {
+        "category_code": "study",
+        "category_label": "Study",
         "name": "KAU-KC3",
+        "description": "オフィス/ワークチェア",
+        "features": "研究室/クリニック適用",
+        "price": "20000",
         "image": "/media/商品_19.png"
       },
       {
+        "category_code": "exec",
+        "category_label": "Executive",
         "name": "KAU-MACARON-R",
-        "image": "/media/商品_21-1.png"
+        "description": "オフィス/ホームチェア",
+        "features": "One tone,座り心地良い"
       },
       {
+        "category_code": "exec",
+        "category_label": "Executive",
         "name": "KAU-ONE TONE",
+        "description": "オフィス/ホームチェア",
+        "features": "コンパクト,軽量",
+        "price": "8800",
         "image": "/media/萬用椅排版02-1.png"
       },
       {
+        "category_code": "study",
+        "category_label": "Study",
         "name": "KAU-2026-FTLLS",
+        "description": "ワーク/学習チェア",
+        "features": "姿勢維持",
+        "price": "22000",
         "image": "/media/商品_23.png"
       }
     ],
