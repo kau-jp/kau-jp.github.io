@@ -102,14 +102,38 @@
     "craft_title": "一脚に、こだわりを。",
     "craft_paragraph_1": "背骨のS字カーブに沿うランバーサポート、体圧を分散する座面構造、なめらかに動く可動機構。人間工学にもとづく設計を、確かな部材と検品体制で形にします。",
     "craft_paragraph_2": "耐久試験をクリアした素材のみを採用し、一脚ずつ丁寧に仕上げる。流行に流されず、長く使い続けられる「ちょうどいい」を追求しています。",
-    "profile": {
-      "company": "禾宇株式会社（KAU Co., Ltd.）",
-      "founded": "2025年4月",
-      "ceo": "代表取締役　○○ ○○",
-      "address": "大阪府大阪市西区阿波座2丁目 2-21 303号",
-      "business": "オフィスチェア・学習チェアの企画、製造、販売／オフィス家具のOEM・法人向け導入支援",
-      "employees": "32名（2026年4月現在）"
-    },
+    "profile": [
+      {
+        "label": "会社名",
+        "sublabel": "Company",
+        "value": "禾宇株式会社（KAU Co., Ltd.）"
+      },
+      {
+        "label": "設立",
+        "sublabel": "Founded",
+        "value": "2025年4月"
+      },
+      {
+        "label": "代表者",
+        "sublabel": "CEO",
+        "value": "代表取締役　○○ ○○"
+      },
+      {
+        "label": "所在地",
+        "sublabel": "Address",
+        "value": "大阪府大阪市西区阿波座2丁目 2-21 303号"
+      },
+      {
+        "label": "事業内容",
+        "sublabel": "Business",
+        "value": "オフィスチェア・学習チェアの企画、製造、販売／オフィス家具のOEM・法人向け導入支援"
+      },
+      {
+        "label": "従業員数",
+        "sublabel": "Employees",
+        "value": "32名（2026年4月現在）"
+      }
+    ],
     "history": [
       {
         "year": "2014",

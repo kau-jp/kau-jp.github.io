@@ -123,21 +123,7 @@
     if (craftParagraphs[1]) craftParagraphs[1].textContent = about.craft_paragraph_2;
     image("#ab-craft", about.craft_image);
 
-    var profileValues = [
-      about.profile.company,
-      about.profile.founded,
-      about.profile.ceo,
-      about.profile.capital,
-      about.profile.address,
-      about.profile.business,
-      about.profile.employees,
-      about.profile.bank,
-    ];
-    all(".otable dd").forEach(function (element, index) {
-      if (profileValues[index] !== undefined) {
-        element.textContent = profileValues[index];
-      }
-    });
+    renderProfile(about.profile);
 
     all(".timeline .tl-item").forEach(function (itemElement, index) {
       var item = about.history[index];
@@ -167,6 +153,57 @@
     });
     image("#ab-map", about.map_image);
     link(".access .btn-solid", global.contact_url);
+  }
+
+  function normaliseProfile(profile) {
+    if (Array.isArray(profile)) return profile;
+    if (!profile) return [];
+
+    var rows = [
+      ["会社名", "Company", profile.company],
+      ["設立", "Founded", profile.founded],
+      ["代表者", "CEO", profile.ceo],
+      ["資本金", "Capital", profile.capital],
+      ["所在地", "Address", profile.address],
+      ["事業内容", "Business", profile.business],
+      ["従業員数", "Employees", profile.employees],
+      ["取引銀行", "Bank", profile.bank],
+    ];
+
+    return rows
+      .filter(function (row) {
+        return row[2] !== undefined && row[2] !== null && row[2] !== "";
+      })
+      .map(function (row) {
+        return { label: row[0], sublabel: row[1], value: row[2] };
+      });
+  }
+
+  function renderProfile(profile) {
+    var table = one(".otable");
+    if (!table) return;
+
+    table.replaceChildren();
+    normaliseProfile(profile).forEach(function (item) {
+      var row = document.createElement("div");
+      row.className = "row";
+
+      var dt = document.createElement("dt");
+      dt.append(document.createTextNode(item.label || ""));
+      if (item.sublabel) {
+        dt.append(document.createTextNode(" "));
+        var sublabel = document.createElement("span");
+        sublabel.className = "en";
+        sublabel.textContent = item.sublabel;
+        dt.append(sublabel);
+      }
+
+      var dd = document.createElement("dd");
+      dd.textContent = item.value || "";
+
+      row.append(dt, dd);
+      table.append(row);
+    });
   }
 
   function applyProducts(products, global) {

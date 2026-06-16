@@ -110,15 +110,15 @@ content:
           - name: profile
             label: 公司資料
             type: object
+            list:
+              min: 1
+              collapsible:
+                collapsed: true
+                summary: "{label}"
             fields:
-              - { name: company, label: 公司名稱, type: string }
-              - { name: founded, label: 成立時間, type: string }
-              - { name: ceo, label: 代表人, type: string }
-              - { name: capital, label: 資本額, type: string }
-              - { name: address, label: 地址, type: string }
-              - { name: business, label: 營業項目, type: text }
-              - { name: employees, label: 員工人數, type: string }
-              - { name: bank, label: 往來銀行, type: string }
+              - { name: label, label: 欄位名稱, type: string }
+              - { name: sublabel, label: 英文小標, type: string, required: false }
+              - { name: value, label: 內容, type: text }
           - name: history
             label: 公司沿革
             type: object
