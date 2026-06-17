@@ -23,7 +23,15 @@
 
   function image(selector, value, root) {
     var element = one(selector, root);
-    if (element && value) element.setAttribute("src", mediaUrl(value));
+    if (!element || !value) return;
+    var url = mediaUrl(value);
+    element.setAttribute("src", url);
+    // image-slot custom elements only read src in connectedCallback — re-insert to trigger re-render
+    if (element.tagName && element.tagName.toLowerCase() === "image-slot") {
+      var parent = element.parentNode;
+      var next = element.nextSibling;
+      if (parent) { parent.removeChild(element); parent.insertBefore(element, next); }
+    }
   }
 
   function mediaUrl(value) {
