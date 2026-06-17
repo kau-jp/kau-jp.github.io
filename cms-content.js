@@ -23,7 +23,18 @@
 
   function image(selector, value, root) {
     var element = one(selector, root);
-    if (element && value) element.setAttribute("src", value);
+    if (element && value) element.setAttribute("src", mediaUrl(value));
+  }
+
+  function mediaUrl(value) {
+    if (!value || /^https?:\/\//.test(value) || value.indexOf("data:") === 0) return value;
+    if (window.KAU_MEDIA_BASE && value.charAt(0) === "/") {
+      return window.KAU_MEDIA_BASE.replace(/\/$/, "") + value;
+    }
+    if (window.KAU_THEME_BASE && value.charAt(0) === "/") {
+      return window.KAU_THEME_BASE.replace(/\/$/, "") + value;
+    }
+    return value;
   }
 
   function lines(element, first, accent, suffix) {
@@ -66,7 +77,7 @@
     if (options.fit) slot.setAttribute("fit", options.fit);
     if (options.id) slot.id = options.id;
     slot.setAttribute("placeholder", options.placeholder || "画像");
-    if (options.src) slot.setAttribute("src", options.src);
+    if (options.src) slot.setAttribute("src", mediaUrl(options.src));
     return slot;
   }
 
@@ -640,14 +651,25 @@
     });
   }
 
-  fetch("content/site.json?v=" + Date.now())
-    .then(function (response) {
-      if (!response.ok) throw new Error("Unable to load CMS content");
-      return response.json();
-    })
+  function getContent() {
+    if (window.KAU_CONTENT_DATA) return Promise.resolve(window.KAU_CONTENT_DATA);
+    try {
+      var draft = localStorage.getItem("KAU_ADMIN_CONTENT");
+      if (draft) return Promise.resolve(JSON.parse(draft));
+    } catch (e) {}
+    var url = window.KAU_CONTENT_URL || "content/site.json";
+    return fetch(url + (url.indexOf("?") >= 0 ? "&" : "?") + "v=" + Date.now())
+      .then(function (response) {
+        if (!response.ok) throw new Error("Unable to load CMS content");
+        return response.json();
+      });
+  }
+
+  getContent()
     .then(function (content) {
       applyGlobal(content.global);
-      var page = location.pathname.split("/").pop() || "home.html";
+      var _slug = location.pathname.replace(/\/+$/, "").split("/").filter(Boolean).pop() || "home";
+      var page = window.KAU_PAGE || (_slug + ".html");
       if (page === "home.html") applyHome(content.home, content.global);
       if (page === "about.html") applyAbout(content.about, content.global);
       if (page === "products.html") applyProducts(content.products, content.global);
