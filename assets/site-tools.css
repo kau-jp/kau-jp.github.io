@@ -1,0 +1,141 @@
+#kau-ve-toolbar {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  z-index: 2147483000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100vw - 28px);
+  padding: 10px;
+  color: #fff;
+  background: rgba(0, 27, 61, .94);
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 999px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .32);
+  font: 600 13px/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transform: translateX(-50%);
+  backdrop-filter: blur(14px);
+}
+
+#kau-ve-toolbar button,
+#kau-ve-toolbar a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 14px;
+  color: inherit;
+  background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 999px;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#kau-ve-toolbar button:hover,
+#kau-ve-toolbar a:hover {
+  background: rgba(255, 255, 255, .18);
+}
+
+#kau-ve-toolbar .kau-ve-save {
+  color: #001b3d;
+  background: #d7ab1a;
+  border-color: #d7ab1a;
+}
+
+#kau-ve-toolbar .kau-ve-status {
+  max-width: 240px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, .72);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kau-ve-editable {
+  outline: 1px dashed rgba(215, 171, 26, .7);
+  outline-offset: 4px;
+  cursor: text;
+}
+
+.kau-ve-editable:hover,
+.kau-ve-selected {
+  outline: 2px solid #d7ab1a !important;
+  outline-offset: 5px;
+}
+
+.kau-ve-media-editable {
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(215, 171, 26, .8);
+}
+
+.kau-ve-link-panel {
+  position: fixed;
+  right: 18px;
+  bottom: 78px;
+  z-index: 2147483000;
+  display: none;
+  width: min(420px, calc(100vw - 28px));
+  padding: 12px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, .12);
+  border-radius: 12px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .24);
+  font: 13px/1.4 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.kau-ve-link-panel.open {
+  display: block;
+}
+
+.kau-ve-link-panel label {
+  display: block;
+  margin-bottom: 6px;
+  color: #334155;
+  font-weight: 700;
+}
+
+.kau-ve-link-panel input {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.kau-ve-link-panel .kau-ve-row {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.kau-ve-link-panel button {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.kau-ve-link-panel .primary {
+  color: #fff;
+  background: #001b3d;
+  border-color: #001b3d;
+}
+
+@media (max-width: 720px) {
+  #kau-ve-toolbar {
+    left: 12px;
+    right: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 18px;
+    transform: none;
+  }
+}
+
