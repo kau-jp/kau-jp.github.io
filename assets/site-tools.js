@@ -63,6 +63,26 @@
     qs("#kau-ve-link").addEventListener("click", openLinkPanel);
     qs("#kau-ve-link-close").addEventListener("click", closeLinkPanel);
     qs("#kau-ve-link-apply").addEventListener("click", applyLink);
+    installNavigationGuard();
+  }
+
+  function installNavigationGuard() {
+    document.addEventListener("click", function (event) {
+      var target = event.target && event.target.closest ? event.target.closest("a[href], button") : null;
+      if (!target || isInsideEditor(target)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      var link = target.closest("a[href]");
+      if (link) {
+        selectedLink = link;
+        clearSelection();
+        link.classList.add("kau-ve-selected");
+        status("Link selected. Use Link to edit URL.");
+        return;
+      }
+      target.focus({ preventScroll: true });
+      status("Button selected. Edit its text directly.");
+    }, true);
   }
 
   function escapeAttr(value) {

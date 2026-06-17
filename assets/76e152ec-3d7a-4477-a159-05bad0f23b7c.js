@@ -1,13 +1,12 @@
 // @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
 /* BEGIN USAGE */
 /**
- * <image-slot> â€” user-fillable image placeholder.
+ * <image-slot> ??user-fillable image placeholder.
  *
  * Drop this into a deck, mockup, or page wherever you want the user to
  * supply an image. You control the slot's shape and size; the user fills it
  * by dragging an image file onto it (or clicking to browse). The dropped
- * image persists across reloads via a .image-slots.state.json sidecar â€”
- * same read-via-fetch / write-via-window.omelette pattern as
+ * image persists across reloads via a .image-slots.state.json sidecar ?? * same read-via-fetch / write-via-window.omelette pattern as
  * design_canvas.jsx, so the filled slot shows on share links, downloaded
  * zips, and PPTX export. Outside the omelette runtime the slot is read-only.
  *
@@ -16,14 +15,13 @@
  * (same constraint as design_canvas.jsx).
  *
  * Attributes:
- *   id           Persistence key. REQUIRED for the drop to survive reload â€”
- *                every slot on the page needs a distinct id.
+ *   id           Persistence key. REQUIRED for the drop to survive reload ?? *                every slot on the page needs a distinct id.
  *   shape        'rect' | 'rounded' | 'circle' | 'pill'   (default 'rounded')
  *                'circle' applies 50% border-radius; on a non-square slot
- *                that's an ellipse â€” set equal width and height for a true
+ *                that's an ellipse ??set equal width and height for a true
  *                circle.
  *   radius       Corner radius in px for 'rounded'.       (default 12)
- *   mask         Any CSS clip-path value. Overrides `shape` â€” use this for
+ *   mask         Any CSS clip-path value. Overrides `shape` ??use this for
  *                hexagons, blobs, arbitrary polygons.
  *   fit          object-fit: cover | contain | fill.       (default 'cover')
  *                With cover (the default) double-clicking the filled slot
@@ -36,8 +34,8 @@
  *   src          Optional initial/fallback image URL. A user drop overrides
  *                it; clearing the drop reveals src again.
  *
- * Size and layout come from ordinary CSS on the element â€” width/height
- * inline or from a parent grid â€” so it composes with any layout.
+ * Size and layout come from ordinary CSS on the element ??width/height
+ * inline or from a parent grid ??so it composes with any layout.
  *
  * Usage:
  *   <image-slot id="hero"   style="width:800px;height:450px" shape="rounded" radius="20"
@@ -50,23 +48,23 @@
 
 (() => {
   const STATE_FILE = '.image-slots.state.json';
-  // 2Ã— a ~600px slot in a 1920-wide deck â€” retina-sharp without making the
+  // 2? a ~600px slot in a 1920-wide deck ??retina-sharp without making the
   // sidecar enormous. A 1200px WebP at q=0.85 is ~150-300KB.
   const MAX_DIM = 1200;
   // Raster formats only. SVG is excluded (can carry script; createImageBitmap
   // on SVG blobs is inconsistent). GIF is excluded because the canvas
   // re-encode keeps only the first frame, so an animated GIF would silently
-  // go still â€” better to reject than surprise.
+  // go still ??better to reject than surprise.
   const ACCEPT = ['image/png', 'image/jpeg', 'image/webp', 'image/avif'];
 
-  // â”€â”€ Shared sidecar store â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ?€?€ Shared sidecar store ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€
   // One fetch + immediate write-on-change for every <image-slot> on the
   // page. Reads via fetch() so viewing works anywhere the HTML and sidecar
   // are served together; writes go through window.omelette.writeFile, which
   // the host allowlists to *.state.json basenames only.
   const subs = new Set();
   let slots = {};
-  // ids explicitly cleared before the sidecar fetch resolved â€” otherwise
+  // ids explicitly cleared before the sidecar fetch resolved ??otherwise
   // the merge below can't tell "never set" from "just deleted" and would
   // resurrect the sidecar's stale value.
   const tombstones = new Set();
@@ -83,7 +81,7 @@
         if (j && typeof j === 'object') {
           const merged = Object.assign({}, j, slots);
           // A framing-only write that raced ahead of hydration must not
-          // drop a user image that's only on disk â€” inherit u from the
+          // drop a user image that's only on disk ??inherit u from the
           // sidecar for any in-memory entry that lacks one.
           for (const k in slots) {
             if (merged[k] && !merged[k].u && j[k]) {
@@ -132,16 +130,16 @@
     if (val) { slots[id] = val; tombstones.delete(id); }
     else { delete slots[id]; if (!loaded) tombstones.add(id); }
     subs.forEach((fn) => fn());
-    // A drop is rare + high-value â€” write immediately so nav-away can't lose
+    // A drop is rare + high-value ??write immediately so nav-away can't lose
     // it. Gate on the initial read so we don't overwrite a sidecar we haven't
     // merged yet; the merge in load() keeps this change once the read lands.
     if (loaded) save(); else load().then(save);
   }
 
-  // â”€â”€ Image downscale â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ?€?€ Image downscale ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€
   // Encode through a canvas so the sidecar carries resized bytes, not the
-  // raw upload. Longest side is capped at 2Ã— the slot's rendered width
-  // (retina) and at MAX_DIM. WebP keeps alpha and is ~10Ã— smaller than PNG
+  // raw upload. Longest side is capped at 2? the slot's rendered width
+  // (retina) and at MAX_DIM. WebP keeps alpha and is ~10? smaller than PNG
   // for photos, so there's no need for per-image format picking.
   async function toDataUrl(file, targetW) {
     const bitmap = await createImageBitmap(file);
@@ -159,7 +157,7 @@
     }
   }
 
-  // â”€â”€ Custom element â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ?€?€ Custom element ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€
   const stylesheet =
     ':host{display:inline-block;position:relative;vertical-align:top;' +
     '  font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);width:240px;height:160px}' +
@@ -265,7 +263,7 @@
       this._gen = 0;
       this._view = { s: 1, x: 0, y: 0 };
       this._subFn = () => this._render();
-      // Shadow-DOM listeners live with the shadow DOM â€” bound once here so
+      // Shadow-DOM listeners live with the shadow DOM ??bound once here so
       // disconnect/reconnect (e.g. React remount) doesn't stack handlers.
       this._empty.addEventListener('click', () => this._input.click());
       root.addEventListener('click', (e) => {
@@ -283,8 +281,8 @@
         if (f) this._ingest(f);
         this._input.value = '';
       });
-      // naturalWidth/Height aren't known until load â€” re-apply so the cover
-      // baseline is computed from real dimensions, not the 100%Ã—100% fallback.
+      // naturalWidth/Height aren't known until load ??re-apply so the cover
+      // baseline is computed from real dimensions, not the 100%?100% fallback.
       this._img.addEventListener('load', () => this._applyView());
       // Gated on editable + fit=cover so share links and contain/fill slots
       // stay static.
@@ -310,7 +308,7 @@
         if (corner) {
           // Resize about the OPPOSITE corner. Viewport-px throughout (rect
           // fw/fh, not clientWidth) so the math survives a transform:scale()
-          // ancestor â€” deck_stage renders slides scaled-to-fit.
+          // ancestor ??deck_stage renders slides scaled-to-fit.
           const iw = this._img.naturalWidth || 1, ih = this._img.naturalHeight || 1;
           const base = Math.max(fw / iw, fh / ih);
           const sx = corner.includes('e') ? 1 : -1;
@@ -358,8 +356,7 @@
         this._spill.addEventListener('pointerup', up);
         this._spill.addEventListener('pointercancel', up);
       });
-      // Wheel zoom stays available inside reframe mode as a trackpad nicety â€”
-      // zooms toward the cursor (offset' = cursorÂ·(1-k) + offsetÂ·k).
+      // Wheel zoom stays available inside reframe mode as a trackpad nicety ??      // zooms toward the cursor (offset' = cursorÂ·(1-k) + offsetÂ·k).
       this.addEventListener('wheel', (e) => {
         if (!this.hasAttribute('data-reframe')) return;
         e.preventDefault();
@@ -379,7 +376,7 @@
     }
 
     connectedCallback() {
-      // Warn once per page â€” an id-less slot works for the session but
+      // Warn once per page ??an id-less slot works for the session but
       // cannot persist, and two id-less slots would share nothing.
       if (!this.id && !ImageSlot._warned) {
         ImageSlot._warned = true;
@@ -390,10 +387,9 @@
       this.addEventListener('dragleave', this);
       this.addEventListener('drop', this);
       subs.add(this._subFn);
-      // width%/height% in _applyView encode the frame aspect at call time â€”
-      // a host resize (responsive grid, pane divider) would stretch the
+      // width%/height% in _applyView encode the frame aspect at call time ??      // a host resize (responsive grid, pane divider) would stretch the
       // image until the next _render. Re-render on size change: _render()
-      // re-seeds _view from stored before clamp/apply, so a shrinkâ†’grow
+      // re-seeds _view from stored before clamp/apply, so a shrink?’grow
       // cycle round-trips instead of ratcheting x/y toward the narrower
       // frame's clamp range.
       this._ro = new ResizeObserver(() => this._render());
@@ -442,7 +438,7 @@
 
     attributeChangedCallback() { if (this.shadowRoot) this._render(); }
 
-    // handleEvent â€” one listener object for all four drag events keeps the
+    // handleEvent ??one listener object for all four drag events keeps the
     // add/remove symmetric and the depth counter correct.
     handleEvent(e) {
       if (e.type === 'dragenter' || e.type === 'dragover') {
@@ -453,7 +449,7 @@
         if (e.type === 'dragenter') this._depth++;
         this.setAttribute('data-over', '');
       } else if (e.type === 'dragleave') {
-        // dragenter/leave fire for every descendant crossing â€” count depth
+        // dragenter/leave fire for every descendant crossing ??count depth
         // so hovering the icon inside the empty state doesn't flicker.
         if (--this._depth <= 0) { this._depth = 0; this.removeAttribute('data-over'); }
       } else if (e.type === 'drop') {
@@ -474,13 +470,13 @@
       }
       // toDataUrl can take hundreds of ms on a large photo. A Clear or a
       // newer drop during that window would be clobbered when this await
-      // resumes â€” bump + capture a generation so stale encodes bail.
+      // resumes ??bump + capture a generation so stale encodes bail.
       const gen = ++this._gen;
       try {
         const w = this.clientWidth || this.offsetWidth || MAX_DIM;
         const url = await toDataUrl(file, w);
         if (gen !== this._gen) return;
-        // Only exit reframe once the new image is in hand â€” a rejected type
+        // Only exit reframe once the new image is in hand ??a rejected type
         // or decode failure leaves the in-progress crop untouched.
         this._exitReframe(false);
         const val = { u: url, s: 1, x: 0, y: 0 };
@@ -505,7 +501,7 @@
       setTimeout(() => { if (this._err === d) { d.remove(); this._err = null; } }, 3000);
     }
 
-    // Reframing (pan/resize) is only meaningful for fit=cover â€” contain/fill
+    // Reframing (pan/resize) is only meaningful for fit=cover ??contain/fill
     // keep the old object-fit path and double-click is a no-op.
     _reframes() {
       return this.hasAttribute('data-filled') &&
@@ -514,8 +510,8 @@
 
     // Cover-baseline geometry, shared by clamp/apply/resize. Null until the
     // img has loaded (naturalWidth is 0 before that) or when the slot has no
-    // layout box â€” ResizeObserver fires with a 0Ã—0 rect under display:none,
-    // and clamping against a degenerate 1Ã—1 frame would silently pull the
+    // layout box ??ResizeObserver fires with a 0?0 rect under display:none,
+    // and clamping against a degenerate 1?1 frame would silently pull the
     // stored pan toward zero.
     _geom() {
       const iw = this._img.naturalWidth, ih = this._img.naturalHeight;
@@ -549,7 +545,7 @@
       }
       // Cover baseline: img fills the frame on its tighter axis at s=1, so
       // pan works immediately on the overflowing axis without zooming first.
-      // Width/height and left/top are all frame-% â€” depends only on the
+      // Width/height and left/top are all frame-% ??depends only on the
       // frame aspect ratio, so a responsive resize keeps the same crop. The
       // spill layer mirrors the same box so its corners = image corners.
       const k = g.base * this._view.s;
@@ -598,7 +594,7 @@
       this._sub.style.display = editable ? '' : 'none';
 
       // Content. The sidecar is also writable by the agent's write_file
-      // tool, so its value isn't guaranteed canvas-originated â€” only accept
+      // tool, so its value isn't guaranteed canvas-originated ??only accept
       // data:image/ URLs from it. The `src` attribute is author-controlled
       // (Claude wrote it into the HTML) so it passes through unchanged.
       let stored = this.id ? getSlot(this.id) : this._local;
@@ -615,7 +611,7 @@
         };
       }
       this._cap.textContent = this.getAttribute('placeholder') || 'Drop an image';
-      // Toggle via style.display â€” the [hidden] attribute alone loses to
+      // Toggle via style.display ??the [hidden] attribute alone loses to
       // the display:flex / display:block rules in the stylesheet above.
       if (url) {
         if (this._img.getAttribute('src') !== url) {
@@ -903,6 +899,26 @@ if (!window.KAU_VISUAL_EDITOR_BUNDLE_LOADED) {
     qs("#kau-ve-link").addEventListener("click", openLinkPanel);
     qs("#kau-ve-link-close").addEventListener("click", closeLinkPanel);
     qs("#kau-ve-link-apply").addEventListener("click", applyLink);
+    installNavigationGuard();
+  }
+
+  function installNavigationGuard() {
+    document.addEventListener("click", function (event) {
+      var target = event.target && event.target.closest ? event.target.closest("a[href], button") : null;
+      if (!target || isInsideEditor(target)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      var link = target.closest("a[href]");
+      if (link) {
+        selectedLink = link;
+        clearSelection();
+        link.classList.add("kau-ve-selected");
+        status("Link selected. Use Link to edit URL.");
+        return;
+      }
+      target.focus({ preventScroll: true });
+      status("Button selected. Edit its text directly.");
+    }, true);
   }
 
   function escapeAttr(value) {

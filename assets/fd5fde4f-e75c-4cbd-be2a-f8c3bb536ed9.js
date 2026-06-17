@@ -18,7 +18,7 @@
     window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
   }
 
-  // online shop dropdown — click/tap toggle (hover works via CSS on desktop)
+  // online shop dropdown ??click/tap toggle (hover works via CSS on desktop)
   var shop = document.getElementById('navShop');
   if(shop){
     var sbtn = shop.querySelector('.nav-shop-btn');
@@ -42,12 +42,12 @@
     });
   }
 
-  // design-direction switcher (review aid — remove before WordPress migration)
+  // design-direction switcher (review aid ??remove before WordPress migration)
   var sw = document.getElementById('switcher');
   if(sw){
     var here = location.pathname.split('/').pop() || 'home-a.html';
     var defs = [['home-a.html','A'],['home-b.html','B'],['home-c.html','C']];
-    sw.innerHTML = '<div class="sw-label">首頁デザイン案</div>' + defs.map(function(d){
+    sw.innerHTML = '<div class="sw-label">首�??�ザ?�ン�?/div>' + defs.map(function(d){
       var on = here===d[0] ? ' on':'';
       return '<a class="sw-btn'+on+'" href="'+d[0]+'">'+d[1]+'</a>';
     }).join('');
@@ -323,6 +323,26 @@ if (!window.KAU_VISUAL_EDITOR_BUNDLE_LOADED) {
     qs("#kau-ve-link").addEventListener("click", openLinkPanel);
     qs("#kau-ve-link-close").addEventListener("click", closeLinkPanel);
     qs("#kau-ve-link-apply").addEventListener("click", applyLink);
+    installNavigationGuard();
+  }
+
+  function installNavigationGuard() {
+    document.addEventListener("click", function (event) {
+      var target = event.target && event.target.closest ? event.target.closest("a[href], button") : null;
+      if (!target || isInsideEditor(target)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      var link = target.closest("a[href]");
+      if (link) {
+        selectedLink = link;
+        clearSelection();
+        link.classList.add("kau-ve-selected");
+        status("Link selected. Use Link to edit URL.");
+        return;
+      }
+      target.focus({ preventScroll: true });
+      status("Button selected. Edit its text directly.");
+    }, true);
   }
 
   function escapeAttr(value) {

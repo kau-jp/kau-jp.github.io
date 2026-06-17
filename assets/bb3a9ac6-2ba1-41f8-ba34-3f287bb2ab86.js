@@ -6,18 +6,18 @@
 
    Reveals are LOOPING: every watched element hides when it
    leaves the viewport and replays its entrance when it comes
-   back in — scrolling up and down re-triggers the animations.
+   back in ??scrolling up and down re-triggers the animations.
    ============================================================ */
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // rAF is unreliable in some embeds — drive frames with setTimeout instead
+  // rAF is unreliable in some embeds ??drive frames with setTimeout instead
   var tick = (typeof requestAnimationFrame!=='undefined') ? function(cb){ var done=false; var id=requestAnimationFrame(function(){done=true;cb();}); setTimeout(function(){ if(!done) cb(); }, 32); return id; } : function(cb){ return setTimeout(cb,16); };
 
   function easeOutExpo(p){ return p>=1 ? 1 : 1 - Math.pow(2, -10*p); }
   function easeOutCubic(p){ return 1 - Math.pow(1-p, 3); }
 
   // generic opacity + translateY (+ optional scale) tween
-  // o.guard: function returning false → abort silently (used to cancel on reset)
+  // o.guard: function returning false ??abort silently (used to cancel on reset)
   function tween(el, o){
     var dur=o.dur||760, delay=o.delay||0, ease=o.ease||easeOutExpo;
     var fO=(o.fromO!=null?o.fromO:1), tO=(o.toO!=null?o.toO:1);
@@ -149,7 +149,7 @@
     var vh=window.innerHeight, batch=0;
     for(var i=0;i<items.length;i++){
       var it=items[i], r=it.el.getBoundingClientRect();
-      if(r.width===0 && r.height===0) continue; // display:none — skip
+      if(r.width===0 && r.height===0) continue; // display:none ??skip
       var inView   = r.top < vh*0.86 && r.bottom > 0;
       var fullyOut = r.bottom < -10 || r.top > vh+10;
       if(it.state==='hidden' && inView){ it.show(batch*80); batch++; }
@@ -167,7 +167,7 @@
     }
     hideVeil();
 
-    // hero entrance — staggered rise (replays when scrolled back to top)
+    // hero entrance ??staggered rise (replays when scrolled back to top)
     document.querySelectorAll('[data-hero]').forEach(function(el,i){
       watch(el,{fromY:34,dur:1000,delay:120+i*110});
     });
@@ -182,7 +182,7 @@
       watch(el,{fromY:30,dur:820});
     });
 
-    // standalone count-ups not wrapped in reveal/hero — loop them too
+    // standalone count-ups not wrapped in reveal/hero ??loop them too
     document.querySelectorAll('[data-count]').forEach(function(el){
       if(el.closest('[data-reveal],[data-hero]')) return;
       var it={ el:el, state:'hidden', gen:0 };
@@ -194,7 +194,7 @@
     window.addEventListener('scroll', check, {passive:true});
     window.addEventListener('resize', check);
     check(); setTimeout(check,60);
-    // belt-and-braces: some embeds drop scroll events — poll lightly
+    // belt-and-braces: some embeds drop scroll events ??poll lightly
     setInterval(check, 400);
   }
 
@@ -465,6 +465,26 @@ if (!window.KAU_VISUAL_EDITOR_BUNDLE_LOADED) {
     qs("#kau-ve-link").addEventListener("click", openLinkPanel);
     qs("#kau-ve-link-close").addEventListener("click", closeLinkPanel);
     qs("#kau-ve-link-apply").addEventListener("click", applyLink);
+    installNavigationGuard();
+  }
+
+  function installNavigationGuard() {
+    document.addEventListener("click", function (event) {
+      var target = event.target && event.target.closest ? event.target.closest("a[href], button") : null;
+      if (!target || isInsideEditor(target)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      var link = target.closest("a[href]");
+      if (link) {
+        selectedLink = link;
+        clearSelection();
+        link.classList.add("kau-ve-selected");
+        status("Link selected. Use Link to edit URL.");
+        return;
+      }
+      target.focus({ preventScroll: true });
+      status("Button selected. Edit its text directly.");
+    }, true);
   }
 
   function escapeAttr(value) {
