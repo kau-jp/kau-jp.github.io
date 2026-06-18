@@ -42,6 +42,9 @@
     if (window.KAU_THEME_BASE && value.charAt(0) === "/") {
       return window.KAU_THEME_BASE.replace(/\/$/, "") + value;
     }
+    if (value.indexOf("/media/") === 0 || value.indexOf("/assets/") === 0) {
+      return value.slice(1);
+    }
     return value;
   }
 
@@ -506,9 +509,11 @@
     if (!grid) return;
     grid.replaceChildren();
     (items || []).forEach(function (item, index) {
-      var card = document.createElement("div");
+      var card = document.createElement("button");
+      card.type = "button";
       card.className = "pcard";
       card.dataset.cat = item.category_code || "";
+      card.setAttribute("aria-label", (item.name || "Product") + " の詳細を見る");
 
       var ph = document.createElement("div");
       ph.className = "ph";
@@ -555,8 +560,151 @@
       meta.append(buyRow);
 
       card.append(meta);
+      card.addEventListener("click", function () {
+        openProductDetail(item, global);
+      });
       grid.append(card);
     });
+  }
+
+  function getProductDetailDrawer() {
+    var drawer = one("#kau-product-detail");
+    var overlay = one("#kau-product-overlay");
+    if (drawer && overlay) return { drawer: drawer, overlay: overlay };
+
+    overlay = document.createElement("div");
+    overlay.id = "kau-product-overlay";
+    overlay.className = "product-overlay";
+
+    drawer = document.createElement("aside");
+    drawer.id = "kau-product-detail";
+    drawer.className = "product-drawer";
+    drawer.setAttribute("aria-hidden", "true");
+    drawer.innerHTML = [
+      '<div class="product-drawer-top">',
+      '  <span class="product-detail-cat"></span>',
+      '  <button class="product-detail-close" type="button" aria-label="Close">×</button>',
+      '</div>',
+      '<div class="product-drawer-body">',
+      '  <div class="product-detail-photo"><img alt=""></div>',
+      '  <h2 class="product-detail-name"></h2>',
+      '  <p class="product-detail-desc"></p>',
+      '  <div class="product-detail-tags"></div>',
+      '  <dl class="product-detail-specs">',
+      '    <dt>Category</dt><dd data-spec="category"></dd>',
+      '    <dt>Features</dt><dd data-spec="features"></dd>',
+      '    <dt>Price</dt><dd data-spec="price"></dd>',
+      '  </dl>',
+      '  <div class="product-detail-actions">',
+      '    <a class="primary" data-action="contact" href="#contact">お問い合わせ</a>',
+      '    <a class="secondary" data-action="amazon" href="#">Amazonで見る</a>',
+      '    <a class="secondary" data-action="rakuten" href="#">楽天市場で見る</a>',
+      '  </div>',
+      '</div>'
+    ].join("");
+
+    document.body.append(overlay, drawer);
+    overlay.addEventListener("click", closeProductDetail);
+    one(".product-detail-close", drawer).addEventListener("click", closeProductDetail);
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeProductDetail();
+    });
+    return { drawer: drawer, overlay: overlay };
+  }
+
+  function productFeatures(value) {
+    return (value || "").split(",").map(function (v) { return v.trim(); }).filter(Boolean);
+  }
+
+  function productPrice(value) {
+    if (!value) return "お問い合わせ";
+    var number = Number(value);
+    if (!isNaN(number) && number > 0) return "¥" + number.toLocaleString("ja-JP");
+    return String(value);
+  }
+
+  function renderProductSpecs(drawer, item, features) {
+    var specList = one(".product-detail-specs", drawer);
+    if (!specList) return;
+
+    specList.replaceChildren();
+    [
+      ["Category", item.category_label || "-"],
+      ["Features", features.join(" / ") || "-"],
+      ["Price", productPrice(item.price)]
+    ].forEach(function (pair) {
+      var dt = document.createElement("dt");
+      var dd = document.createElement("dd");
+      dt.textContent = pair[0];
+      dd.textContent = pair[1];
+      specList.append(dt, dd);
+    });
+
+    (item.specs || "").split(/\r?\n/).map(function (line) {
+      return line.trim();
+    }).filter(Boolean).forEach(function (line) {
+      var match = line.match(/^([^:：]+)[:：]\s*(.+)$/);
+      var dt = document.createElement("dt");
+      var dd = document.createElement("dd");
+      dt.textContent = match ? match[1].trim() : "Spec";
+      dd.textContent = match ? match[2].trim() : line;
+      specList.append(dt, dd);
+    });
+  }
+
+  function openProductDetail(item, global) {
+    var parts = getProductDetailDrawer();
+    var drawer = parts.drawer;
+    var features = productFeatures(item.features);
+    var img = one(".product-detail-photo img", drawer);
+    var amazon = one('[data-action="amazon"]', drawer);
+    var rakuten = one('[data-action="rakuten"]', drawer);
+    var contact = one('[data-action="contact"]', drawer);
+
+    text(".product-detail-cat", item.category_label || "Product", drawer);
+    text(".product-detail-name", item.name || "", drawer);
+    text(".product-detail-desc", item.detail || item.description || "", drawer);
+    renderProductSpecs(drawer, item, features);
+    if (img) {
+      img.src = mediaUrl(item.image || "");
+      img.alt = item.name || "";
+    }
+
+    var tagWrap = one(".product-detail-tags", drawer);
+    if (tagWrap) {
+      tagWrap.replaceChildren();
+      features.forEach(function (value) {
+        var span = document.createElement("span");
+        span.textContent = value;
+        tagWrap.append(span);
+      });
+    }
+
+    if (contact) contact.href = (global && global.contact_url) || "#contact";
+    var shop = (global && global.shop) || {};
+    setDetailAction(amazon, item.amazon_url || (global && global.amazon_url), shop.amazon_label || "Amazonで見る");
+    setDetailAction(rakuten, item.rakuten_url || (global && global.rakuten_url), shop.rakuten_label || "楽天市場で見る");
+
+    parts.overlay.classList.add("open");
+    drawer.classList.add("open");
+    drawer.setAttribute("aria-hidden", "false");
+  }
+
+  function setDetailAction(anchor, url, label) {
+    if (!anchor) return;
+    anchor.textContent = label;
+    anchor.href = url || "#";
+    anchor.style.display = url ? "" : "none";
+  }
+
+  function closeProductDetail() {
+    var drawer = one("#kau-product-detail");
+    var overlay = one("#kau-product-overlay");
+    if (overlay) overlay.classList.remove("open");
+    if (drawer) {
+      drawer.classList.remove("open");
+      drawer.setAttribute("aria-hidden", "true");
+    }
   }
 
   function appendDiv(parent, className, value) {
@@ -677,7 +825,7 @@
     .then(function (content) {
       applyGlobal(content.global);
       var _slug = location.pathname.replace(/\/+$/, "").split("/").filter(Boolean).pop() || "home";
-      var page = window.KAU_PAGE || (_slug + ".html");
+      var page = window.KAU_PAGE || (_slug.slice(-5) === ".html" ? _slug : _slug + ".html");
       if (page === "home.html") applyHome(content.home, content.global);
       if (page === "about.html") applyAbout(content.about, content.global);
       if (page === "products.html") applyProducts(content.products, content.global);
